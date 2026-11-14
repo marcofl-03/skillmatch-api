@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+sqlalchemy
+pdfplumber
+sentence-transformers
+scikit-learn
+requests
+beautifulsoup4
