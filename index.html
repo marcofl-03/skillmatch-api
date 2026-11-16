@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillMatch AI — Plataforma de Talento Inteligente</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-cream: #FAFAFA;
+            --surface-white: #FFFFFF;
+            --carbon: #18181B;
+            --carbon-light: #27272A;
+            --emerald: #10B981;
+            --emerald-hover: #059669;
+            --emerald-soft: #ECFDF5;
+            --amber: #F59E0B;
+            --coral: #EF4444;
+            --border-subtle: #E4E4E7;
+            --text-muted: #71717A;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--carbon);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .navbar {
+            background-color: var(--carbon);
+            border-bottom: 1px solid var(--carbon-light);
+        }
+        .brand-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--emerald);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .saas-card {
+            background: var(--surface-white);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px -5px rgba(24, 24, 27, 0.04);
+        }
+
+        .upload-zone {
+            border: 2px dashed #D4D4D8;
+            border-radius: 16px;
+            padding: 32px 20px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #FAFAFA;
+            transition: all 0.25s ease;
+            display: block;
+        }
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: var(--emerald);
+            background-color: var(--emerald-soft);
+            transform: translateY(-2px);
+        }
+        .upload-icon-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background-color: var(--emerald-soft);
+            color: var(--emerald);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 12px auto;
+        }
+        .file-pill {
+            background-color: var(--emerald-soft);
+            color: var(--emerald-hover);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 999px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .btn-emerald {
+            background-color: var(--emerald);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 13px 20px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .btn-emerald:hover {
+            background-color: var(--emerald-hover);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.25);
+        }
+        .btn-carbon {
+            background-color: var(--carbon);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 13px 20px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .btn-carbon:hover {
+            background-color: var(--carbon-light);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .nav-pills-custom {
+            background-color: #F4F4F5;
+            padding: 6px;
+            border-radius: 14px;
+            display: inline-flex;
+            width: 100%;
+        }
+        .nav-pills-custom .nav-item {
+            flex: 1;
+            text-align: center;
+        }
+        .nav-pills-custom .nav-link {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            padding: 10px 12px;
+            width: 100%;
+            border: none;
+            background: transparent;
+            transition: all 0.2s;
+        }
+        .nav-pills-custom .nav-link.active {
+            background-color: var(--surface-white);
+            color: var(--carbon);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .score-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.1rem;
+            font-weight: 800;
+            margin: 0 auto;
+            transition: all 0.4s ease;
+            flex-shrink: 0;
+        }
+        .score-neutral {
+            background: linear-gradient(135deg, #27272A, #18181B);
+            box-shadow: 0 10px 25px rgba(24, 24, 27, 0.15);
+        }
+        .score-high {
+            background: linear-gradient(135deg, #10B981, #059669);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
+        }
+        .score-mid {
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35);
+        }
+        .score-low {
+            background: linear-gradient(135deg, #EF4444, #DC2626);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35);
+        }
+
+        /* Tarjeta del Trabajo Óptimo */
+        .optimal-job-card {
+            background: linear-gradient(180deg, #ECFDF5 0%, #FFFFFF 100%);
+            border: 1.5px solid #A7F3D0;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .job-item {
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            background: var(--surface-white);
+            transition: all 0.22s ease;
+            border-left: 5px solid var(--emerald);
+        }
+        .job-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px -5px rgba(0,0,0,0.06);
+        }
+        .match-pill {
+            background-color: var(--emerald-soft);
+            color: var(--emerald-hover);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 999px;
+        }
+
+        .blurred-email {
+            filter: blur(4px);
+            user-select: none;
+            transition: filter 0.3s ease;
+        }
+        .blurred-email.unlocked {
+            filter: blur(0);
+            user-select: auto;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark py-3 mb-4">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand fs-4 fw-extrabold d-flex align-items-center gap-2 m-0" href="#">
+                <span class="d-inline-flex align-items-center justify-content-center rounded-3" style="width:36px; height:36px; background:var(--emerald); color:var(--carbon);">
+                    <i class="fa-solid fa-bolt"></i>
+                </span>
+                <span>SkillMatch <span style="color: var(--emerald);">AI</span></span>
+            </a>
+            <div class="brand-badge">
+                <span class="pulse-dot"></span>
+                Motor Neuronal Activo
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold mb-1" style="letter-spacing: -0.5px;">Emparejamiento Inteligente de Talento</h2>
+            <p class="text-muted mb-0">Descubre cuál es el puesto más óptimo para tu CV en nuestra base de datos o en la web.</p>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+            <!-- COLUMNA IZQUIERDA -->
+            <div class="col-lg-5">
+                <div class="saas-card h-100 p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="badge rounded-pill" style="background: var(--emerald-soft); color: var(--emerald-hover);">Candidatos</span>
+                            <span class="text-muted small">Formato PDF</span>
+                        </div>
+                        <h4 class="fw-bold mb-1">Sube tu Currículum</h4>
+                        <p class="text-muted small mb-4">Comparamos tu perfil contra todas las vacantes activas para encontrar tu puesto ideal.</p>
+
+                        <form id="formulario-cv">
+                            <div class="mb-4">
+                                <label for="archivo_cv" class="upload-zone" id="drop-zone">
+                                    <div class="upload-icon-circle">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    </div>
+                                    <div class="fw-bold text-dark">Haz clic o arrastra tu CV aquí</div>
+                                    <div class="text-muted small mt-1">Archivos PDF hasta 10 MB</div>
+                                    <div id="file-name-display" class="file-pill hidden">
+                                        <i class="fa-solid fa-file-pdf me-1"></i><span></span>
+                                    </div>
+                                </label>
+                                <input class="d-none" type="file" id="archivo_cv" accept=".pdf" required>
+                            </div>
+
+                            <div class="d-grid gap-3">
+                                <button type="submit" class="btn btn-emerald" id="btn-subir">
+                                    <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Encontrar Trabajo Más Óptimo (BD)
+                                </button>
+                                <button type="button" class="btn btn-carbon" id="btn-buscar-web">
+                                    <i class="fa-solid fa-earth-americas me-2"></i>Buscar Top 5 Empleos en la Web
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="loader" class="text-center mt-4 pt-3 border-top hidden">
+                        <div class="spinner-border" style="color: var(--emerald);" role="status"></div>
+                        <p class="mt-2 mb-0 fw-semibold small" id="loader-text">Analizando...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA -->
+            <div class="col-lg-7">
+                <div class="saas-card h-100 p-4">
+                    <ul class="nav nav-pills-custom mb-4" id="myTab">
+                        <li class="nav-item">
+                            <button class="nav-link active" id="resultados-tab" data-bs-toggle="tab" data-bs-target="#resultados" type="button">
+                                <i class="fa-solid fa-bullseye me-2"></i>Puesto Óptimo (BD)
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="top5-tab" data-bs-toggle="tab" data-bs-target="#top5" type="button">
+                                <i class="fa-solid fa-trophy me-2"></i>Top 5 Web
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="base-tab" data-bs-toggle="tab" data-bs-target="#base" type="button">
+                                <i class="fa-solid fa-lock me-2"></i>Leads B2B
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+
+                        <!-- PESTAÑA 1: PUESTO MÁS ÓPTIMO EN LA BASE DE DATOS -->
+                        <div class="tab-pane fade show active" id="resultados">
+                            <div id="estado-vacio-local" class="text-center py-5">
+                                <div class="score-circle score-neutral mb-3">0%</div>
+                                <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
+                                    Sube tu CV para descubrir el puesto más compatible en la base de datos
+                                </span>
+                            </div>
+
+                            <div id="contenedor-mejor-vacante" class="hidden">
+                                <div class="optimal-job-card mb-4">
+                                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+                                        <div>
+                                            <span class="badge rounded-pill mb-2 px-3 py-1" id="score-status-badge" style="background: var(--emerald); color: white;">
+                                                <i class="fa-solid fa-crown me-1"></i> Trabajo Más Óptimo para tu CV
+                                            </span>
+                                            <h4 class="fw-extrabold mb-1" id="mejor-titulo">—</h4>
+                                            <div class="text-muted fw-semibold small mb-2">
+                                                <i class="fa-solid fa-building me-1 text-success"></i><span id="mejor-empresa">—</span>
+                                            </div>
+                                            <p class="small text-secondary mb-0" id="mejor-descripcion">—</p>
+                                        </div>
+                                        <div class="score-circle score-high" id="score-display">
+                                            0%
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h6 class="fw-bold small text-uppercase text-muted mb-2">Comparativa con otras vacantes en la Base de Datos</h6>
+                                <div id="lista-ranking-local" class="d-flex flex-column gap-2"></div>
+                            </div>
+                        </div>
+
+                        <!-- PESTAÑA 2: TOP 5 WEB -->
+                        <div class="tab-pane fade" id="top5">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold m-0"><i class="fa-solid fa-fire text-success me-2"></i>Vacantes Remotas Compatibles (Perú / LATAM)</h6>
+                                <span class="badge bg-light text-secondary border">Tiempo real</span>
+                            </div>
+                            <div id="lista-top5" class="d-flex flex-column gap-3">
+                                <div class="text-center text-muted py-5">
+                                    <i class="fa-solid fa-compass fs-1 mb-3" style="color: #D4D4D8;"></i>
+                                    <p class="mb-0">Sube tu CV y presiona <strong>"Buscar Top 5 Empleos en la Web"</strong>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PESTAÑA 3: BASE LOCAL (B2B) -->
+                        <div class="tab-pane fade" id="base">
+                            <div class="mb-3">
+                                <h6 class="fw-bold m-0">Candidatos Evaluados (Vista Reclutador)</h6>
+                                <small class="text-muted">Los datos de contacto están protegidos bajo el modelo Pago por Conexión.</small>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table align-middle">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Candidato</th>
+                                            <th>Puesto Óptimo</th>
+                                            <th>Match</th>
+                                            <th>Contacto (Regex)</th>
+                                            <th class="text-end">Acción B2B</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabla-candidatos">
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted py-4">Aún no se han procesado candidatos en esta sesión.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const API_BASE_URL = "https://skillmatch-api-1swr.onrender.com";
+        const archivoInput = document.getElementById('archivo_cv');
+        const dropZone = document.getElementById('drop-zone');
+        const fileNameDisplay = document.getElementById('file-name-display');
+        const loader = document.getElementById('loader');
+        const loaderText = document.getElementById('loader-text');
+
+        function actualizarNombreArchivo() {
+            if (archivoInput.files.length > 0) {
+                fileNameDisplay.querySelector('span').innerText = archivoInput.files[0].name;
+                fileNameDisplay.classList.remove('hidden');
+            }
+        }
+
+        archivoInput.addEventListener('change', actualizarNombreArchivo);
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                archivoInput.files = e.dataTransfer.files;
+                actualizarNombreArchivo();
+            }
+        });
+
+        function toggleBotones(desactivar) {
+            document.getElementById('btn-subir').disabled = desactivar;
+            document.getElementById('btn-buscar-web').disabled = desactivar;
+            if (desactivar) loader.classList.remove('hidden');
+            else loader.classList.add('hidden');
+        }
+
+        function actualizarSemaforo(score) {
+            const circle = document.getElementById('score-display');
+            circle.className = 'score-circle';
+            if (score >= 70) circle.classList.add('score-high');
+            else if (score >= 50) circle.classList.add('score-mid');
+            else circle.classList.add('score-low');
+        }
+
+        window.desbloquearLead = function(boton) {
+            const fila = boton.closest('tr');
+            const spanCorreo = fila.querySelector('.blurred-email');
+            spanCorreo.classList.add('unlocked');
+            boton.className = 'btn btn-sm btn-light text-success fw-bold disabled';
+            boton.innerHTML = '<i class="fa-solid fa-check me-1"></i>Desbloqueado';
+        };
+
+        // --- BOTÓN 1: ENCONTRAR EL TRABAJO MÁS ÓPTIMO EN BD ---
+        document.getElementById('formulario-cv').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (archivoInput.files.length === 0) {
+                alert("Por favor selecciona tu CV en PDF primero.");
+                return;
+            }
+
+            toggleBotones(true);
+            loaderText.innerText = "Buscando el trabajo más óptimo en la Base de Datos...";
+            const formData = new FormData();
+            formData.append('archivo_cv', archivoInput.files[0]);
+
+            try {
+                const respuesta = await fetch(`${API_BASE_URL}/procesar-cv/`, { method: 'POST', body: formData });
+                const datos = await respuesta.json();
+
+                if (respuesta.ok) {
+                    document.getElementById('estado-vacio-local').classList.add('hidden');
+                    document.getElementById('contenedor-mejor-vacante').classList.remove('hidden');
+
+                    const score = parseFloat(datos.match_score) || 0;
+                    const mejor = datos.mejor_vacante || {
+                        titulo: "Vacante Corporativa Activa",
+                        empresa: "TechCorp Innovación",
+                        descripcion: "Evaluación completada contra la base de datos."
+                    };
+
+                    document.getElementById('score-display').innerText = score + '%';
+                    document.getElementById('mejor-titulo').innerText = mejor.titulo;
+                    document.getElementById('mejor-empresa').innerText = mejor.empresa;
+                    document.getElementById('mejor-descripcion').innerText = mejor.descripcion;
+                    actualizarSemaforo(score);
+
+                    // Mostrar el resto de vacantes de la base de datos ordenadas
+                    const contenedorRanking = document.getElementById('lista-ranking-local');
+                    contenedorRanking.innerHTML = "";
+                    if (datos.ranking_local && datos.ranking_local.length > 1) {
+                        datos.ranking_local.slice(1).forEach((item, idx) => {
+                            contenedorRanking.innerHTML += `
+                                <div class="d-flex justify-content-between align-items-center p-2 px-3 rounded-3 border bg-white">
+                                    <div>
+                                        <span class="badge bg-light text-dark border me-2">#${idx + 2}</span>
+                                        <span class="fw-semibold small">${item.titulo}</span>
+                                        <span class="text-muted small ms-1">— ${item.empresa}</span>
+                                    </div>
+                                    <span class="badge rounded-pill bg-light text-dark border fw-bold">${item.match_score}%</span>
+                                </div>
+                            `;
+                        });
+                    }
+
+                    // Registrar en la tabla de Leads B2B
+                    const nombreLimpio = archivoInput.files[0].name.replace('.pdf', '');
+                    const correoReal = datos.correo_extraido || `${nombreLimpio.toLowerCase().replace(/\s+/g, '.')}@talento.pe`;
+                    const tabla = document.getElementById('tabla-candidatos');
+                    if (tabla.innerText.includes("Aún no se han procesado")) tabla.innerHTML = "";
+
+                    tabla.innerHTML += `
+                        <tr>
+                            <td class="fw-bold">${nombreLimpio}</td>
+                            <td><span class="small fw-semibold">${mejor.titulo}</span></td>
+                            <td><span class="badge bg-dark">${score}%</span></td>
+                            <td><span class="blurred-email text-muted">${correoReal}</span></td>
+                            <td class="text-end">
+                                <button onclick="desbloquearLead(this)" class="btn btn-sm btn-emerald py-1 px-3">
+                                    <i class="fa-solid fa-unlock-keyhole me-1"></i>Desbloquear
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                    new bootstrap.Tab(document.getElementById('resultados-tab')).show();
+                } else {
+                    alert("Error: " + (datos.detail || datos.mensaje));
+                }
+            } catch (error) {
+                alert("Error de conexión con el servidor en Render.");
+            } finally {
+                toggleBotones(false);
+            }
+        });
+
+        // --- BOTÓN 2: EXPLORADOR WEB TOP 5 ---
+        document.getElementById('btn-buscar-web').addEventListener('click', async () => {
+            if (archivoInput.files.length === 0) {
+                alert("Primero debes seleccionar o arrastrar tu archivo PDF.");
+                return;
+            }
+
+            toggleBotones(true);
+            loaderText.innerText = "Escaneando vacantes remotas con IA...";
+            const formData = new FormData();
+            formData.append('archivo_cv', archivoInput.files[0]);
+
+            try {
+                const respuesta = await fetch(`${API_BASE_URL}/explorar-trabajos-web/`, { method: 'POST', body: formData });
+                const datos = await respuesta.json();
+
+                if (respuesta.ok) {
+                    const contenedorTop5 = document.getElementById('lista-top5');
+                    contenedorTop5.innerHTML = "";
+
+                    datos.top_5.forEach((trabajo, index) => {
+                        const htmlTrabajo = `
+                            <div class="job-item p-3">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                    <div>
+                                        <div class="d-flex align-items-center gap-2 mb-1">
+                                            <span class="badge bg-dark rounded-pill">#${index + 1}</span>
+                                            <h6 class="fw-bold m-0">${trabajo.titulo}</h6>
+                                        </div>
+                                        <span class="text-muted small"><i class="fa-regular fa-building me-1"></i>${trabajo.empresa}</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="match-pill">${trabajo.match_score}% Match</span>
+                                        <a href="${trabajo.link}" target="_blank" class="btn btn-sm btn-carbon py-2 px-3">
+                                            Ver Vacante <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        contenedorTop5.innerHTML += htmlTrabajo;
+                    });
+
+                    new bootstrap.Tab(document.getElementById('top5-tab')).show();
+                } else {
+                    alert("Error: " + (datos.detail || datos.mensaje));
+                }
+            } catch (error) {
+                alert("Error de conexión con el servidor en Render.");
+            } finally {
+                toggleBotones(false);
+            }
+        });
+    </script>
+</body>
+</html>
