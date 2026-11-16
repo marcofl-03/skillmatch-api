@@ -58,7 +58,7 @@ Session = sessionmaker(bind=motor)
 # ==========================================
 
 # ⚠️ PEGA AQUÍ TU LLAVE REAL DE OPENROUTER (sk-or-v1-...)
-OPENROUTER_API_KEY = "PEGA_TU_TOKEN_AQUI"
+OPENROUTER_API_KEY = "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"
 
 def calcular_similitud(perfil_estudiante, vacante_empresa):
     """Calcula el porcentaje de match usando OpenRouter."""
