@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillMatch AI — Emparejamiento Inteligente de Talento</title>
-    <!-- Google Fonts: Inter / Plus Jakarta Sans -->
+    <title>SkillMatch AI — Agencia de Headhunting & Evaluación con IA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -18,34 +15,30 @@
             --slate-900: #0f172a;
             --slate-800: #1e293b;
             --slate-600: #475569;
-            --slate-400: #94a3b8;
             --slate-200: #e2e8f0;
             --slate-100: #f1f5f9;
             --emerald-600: #059669;
             --emerald-500: #10b981;
             --emerald-100: #d1fae5;
-            --amber-500: #f59e0b;
         }
 
         body {
             background-color: #f8fafc;
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--slate-900);
-            overflow-x: hidden;
         }
 
-        /* Navbar Corporativa */
         .navbar-custom {
             background-color: var(--slate-900);
             padding: 0.9rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
         .brand-logo {
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            color: #ffffff;
+            color: #fff;
             font-weight: 700;
             font-size: 1.25rem;
             text-decoration: none;
@@ -60,49 +53,38 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
         }
 
-        .nav-link-corp {
-            color: var(--slate-400);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
+        .mode-switcher {
+            background: rgba(255,255,255,0.08);
+            padding: 0.25rem;
+            border-radius: 10px;
+            display: inline-flex;
+            gap: 0.25rem;
         }
 
-        .nav-link-corp:hover {
-            color: #ffffff;
-        }
-
-        .status-pill {
-            background-color: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #34d399;
+        .mode-btn {
+            border: none;
+            background: transparent;
+            color: #cbd5e1;
             font-size: 0.8rem;
             font-weight: 600;
-            padding: 0.35rem 0.85rem;
-            border-radius: 999px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 8px;
+            transition: all 0.2s;
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--emerald-500);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--emerald-500);
+        .mode-btn.active {
+            background: var(--emerald-500);
+            color: var(--slate-900);
         }
 
-        /* Tarjetas Principales */
         .saas-card {
             background: #ffffff;
             border: 1px solid var(--slate-200);
             border-radius: 18px;
             box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
-            padding: 1.75rem;
+            padding: 1.65rem;
         }
 
         .badge-soft-emerald {
@@ -114,52 +96,23 @@
             border-radius: 6px;
         }
 
-        /* Zona Drag & Drop */
         .drop-zone {
             border: 2px dashed #cbd5e1;
             border-radius: 14px;
             background-color: #f8fafc;
-            padding: 2.2rem 1.2rem;
+            padding: 2rem 1rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
         }
 
-        .drop-zone:hover, .drop-zone.dragover {
+        .drop-zone:hover {
             border-color: var(--emerald-500);
             background-color: #f0fdf4;
         }
 
-        .upload-icon-box {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background-color: var(--emerald-100);
-            color: var(--emerald-600);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .file-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background-color: #ecfdf5;
-            border: 1px solid #a7f3d0;
-            color: var(--emerald-600);
-            padding: 0.35rem 0.75rem;
-            border-radius: 8px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            margin-top: 0.65rem;
-        }
-
-        /* Botones de Acción */
         .btn-emerald {
-            background-color: #489e76;
+            background-color: var(--emerald-600);
             color: #ffffff;
             font-weight: 600;
             padding: 0.8rem 1.2rem;
@@ -169,28 +122,54 @@
         }
 
         .btn-emerald:hover {
-            background-color: var(--emerald-600);
+            background-color: #047857;
             color: #ffffff;
-            transform: translateY(-1px);
         }
 
-        .btn-slate-dark {
-            background-color: var(--slate-900);
+        /* Espacios Publicitarios B2C Elegantes */
+        .ad-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #ffffff;
-            font-weight: 600;
-            padding: 0.8rem 1.2rem;
-            border-radius: 10px;
-            border: none;
-            transition: all 0.2s;
+            border-radius: 14px;
+            padding: 1.25rem;
+            position: relative;
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
-        .btn-slate-dark:hover {
-            background-color: var(--slate-800);
-            color: #ffffff;
-            transform: translateY(-1px);
+        .ad-tag {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: rgba(255,255,255,0.12);
+            color: #cbd5e1;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
         }
 
-        /* Pestañas Segmented Control */
+        /* Chatbot de Entrevista Virtual (A.2) */
+        .chat-box {
+            background-color: #f8fafc;
+            border: 1px solid var(--slate-200);
+            border-radius: 12px;
+            padding: 1.2rem;
+            max-height: 290px;
+            overflow-y: auto;
+        }
+
+        .bot-bubble {
+            background-color: #ffffff;
+            border-left: 4px solid var(--emerald-500);
+            padding: 0.85rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            margin-bottom: 0.75rem;
+            font-size: 0.88rem;
+        }
+
+        /* Panel Interno de Agencia */
         .segmented-tabs {
             background-color: var(--slate-100);
             padding: 0.35rem;
@@ -200,20 +179,15 @@
             border: none;
         }
 
-        .segmented-tabs .nav-item {
-            flex: 1;
-        }
-
+        .segmented-tabs .nav-item { flex: 1; }
         .segmented-tabs .nav-link {
             width: 100%;
             border: none;
             border-radius: 9px;
             color: var(--slate-600);
             font-weight: 600;
-            font-size: 0.88rem;
-            padding: 0.55rem 0.75rem;
-            background: transparent;
-            transition: all 0.2s;
+            font-size: 0.82rem;
+            padding: 0.55rem 0.5rem;
         }
 
         .segmented-tabs .nav-link.active {
@@ -222,595 +196,621 @@
             box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
         }
 
-        /* Tarjeta de Puesto Óptimo */
-        .optimal-job-card {
-            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
-            border: 1px solid #bbf7d0;
-            border-radius: 14px;
-            padding: 1.5rem;
-        }
-
-        .score-circle {
-            width: 105px;
-            height: 105px;
-            border-radius: 50%;
-            background-color: var(--emerald-500);
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.55rem;
-            font-weight: 800;
-            flex-shrink: 0;
-            box-shadow: 0 6px 18px rgba(16, 185, 129, 0.25);
-        }
-
-        .ranking-row {
-            border: 1px solid var(--slate-200);
-            border-radius: 10px;
-            padding: 0.65rem 1rem;
-            margin-bottom: 0.5rem;
-            background-color: #ffffff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Efecto Blur B2B */
-        .email-blur {
-            filter: blur(5px);
-            user-select: none;
-            transition: filter 0.3s ease;
-        }
-
-        .email-unblurred {
-            filter: none;
-            color: var(--slate-900);
-            font-weight: 600;
-        }
-
-        /* Secciones Corporativas Nuevas */
-        .corp-section {
-            padding: 4.5rem 0;
-        }
-
-        .feature-card {
-            background: #ffffff;
-            border: 1px solid var(--slate-200);
-            border-radius: 16px;
-            padding: 2rem;
-            height: 100%;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
-        }
-
-        .feature-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            background-color: var(--emerald-100);
-            color: var(--emerald-600);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.35rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .step-badge {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            background-color: var(--slate-900);
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 0.85rem;
+        .progress-slim {
+            height: 8px;
+            border-radius: 99px;
         }
 
         .footer-corp {
             background-color: var(--slate-900);
-            color: var(--slate-400);
-            padding: 3.5rem 0 2rem;
+            color: #94a3b8;
+            padding: 3rem 0 2rem;
             margin-top: 4rem;
         }
 
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <!-- 1. BARRA DE NAVEGACIÓN -->
+    <!-- 1. BARRA DE NAVEGACIÓN CON SELECTOR DE VISTA (POSTULANTE vs AGENCIA INTERNA) -->
     <nav class="navbar-custom">
-        <div class="container d-flex justify-content-between align-items-center">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
             <a href="#" class="brand-logo">
                 <span class="brand-icon"><i class="fa-solid fa-bolt"></i></span>
                 <span>SkillMatch <span class="fw-normal text-secondary">AI</span></span>
             </a>
-            <div class="d-none d-md-flex align-items-center gap-4">
-                <a href="#herramienta" class="nav-link-corp">Plataforma</a>
-                <a href="#como-funciona" class="nav-link-corp">Cómo Funciona</a>
-                <a href="#nosotros" class="nav-link-corp">Quiénes Somos</a>
-            </div>
-            <div class="status-pill">
-                <span class="status-dot"></span>
-                Motor Neuronal Activo
+
+            <!-- Selector de Modo para Demostración y Operación -->
+            <div class="mode-switcher">
+                <button type="button" class="mode-btn active" id="btn-modo-postulante" onclick="cambiarVista('postulante')">
+                    <i class="fa-solid fa-user-check me-1"></i>Vista Postulante (Pública + Ads)
+                </button>
+                <button type="button" class="mode-btn" id="btn-modo-agencia" onclick="cambiarVista('agencia')">
+                    <i class="fa-solid fa-user-shield me-1"></i>Panel Interno Agencia (A.1 / A.2 / A.3)
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- 2. CONTENIDO PRINCIPAL DE LA APLICACIÓN -->
-    <main class="container my-5" id="herramienta">
-        <!-- Encabezado Principal -->
-        <div class="text-center mb-5">
-            <h1 class="fw-extrabold mb-2" style="font-weight: 800; font-size: 2.3rem;">Emparejamiento Inteligente de Talento</h1>
-            <p class="text-secondary fs-6 mb-0">Descubre cuál es el puesto más óptimo para tu CV en nuestra base de datos o en la web.</p>
+    <!-- BANNER PUBLICITARIO SUPERIOR (MONETIZACIÓN B2C PARA VISITANTES) -->
+    <div class="container mt-3" id="banner-top-ads">
+        <div class="ad-banner d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <span class="ad-tag">Patrocinado • AdSense</span>
+            <div class="d-flex align-items-center gap-3">
+                <div class="bg-success bg-opacity-25 text-success p-3 rounded-3 fs-4">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h6 class="fw-bold mb-1 text-white">Certifícate en Power BI, SQL & Gestión Ágil para Destacar en tu Evaluación</h6>
+                    <p class="small text-light opacity-75 mb-0">Aumenta tu puntaje en pruebas técnicas de selección con los programas ejecutivos de nuestros aliados educativos.</p>
+                </div>
+            </div>
+            <a href="#nosotros" class="btn btn-sm btn-light fw-bold px-3">Conocer Beneficio</a>
+        </div>
+    </div>
+
+    <main class="container my-4">
+        <div class="text-center mb-4">
+            <h1 class="fw-bold mb-1" style="font-size: 2rem;">Centro de Selección y Evaluación de Talento con IA</h1>
+            <p class="text-secondary small mb-0">Sube tu CV sin costo. Evaluamos tus competencias mediante IA para conectarte con nuestras empresas contratantes.</p>
         </div>
 
         <div class="row g-4">
-            <!-- COLUMNA IZQUIERDA: SUBIR CV -->
+            <!-- COLUMNA IZQUIERDA: CARGA DE CV + ANUNCIO LATERAL -->
             <div class="col-lg-5">
-                <div class="saas-card h-100">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <span class="badge-soft-emerald">Candidatos</span>
-                        <span class="text-secondary small">Formato PDF</span>
+                <div class="saas-card">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge-soft-emerald">Postulación Gratuita</span>
+                        <span class="text-secondary small">Paso 1 de 2</span>
                     </div>
-                    <h4 class="fw-bold mb-1">Sube tu Currículum</h4>
-                    <p class="text-secondary small mb-4">Comparamos tu perfil contra todas las vacantes activas para encontrar tu puesto ideal.</p>
+                    <h5 class="fw-bold mb-1">Registra tu Currículum (PDF)</h5>
+                    <p class="text-secondary small mb-3">Nuestro comité de IA evaluará tu perfil en nuestro banco de datos y habilitará tu entrevista de competencias.</p>
 
                     <form id="formulario-cv">
                         <input type="file" id="archivo_cv" accept=".pdf" class="d-none" required>
-                        
-                        <div class="drop-zone mb-4" id="drop-zone">
-                            <div class="upload-icon-box">
-                                <i class="fa-solid fa-cloud-arrow-up"></i>
-                            </div>
-                            <h6 class="fw-bold mb-1">Haz clic o arrastra tu CV aquí</h6>
-                            <p class="text-secondary small mb-0">Archivos PDF hasta 10 MB</p>
-                            <div id="nombre-archivo-box" class="hidden">
-                                <span class="file-badge">
-                                    <i class="fa-solid fa-file-pdf"></i>
-                                    <span id="nombre-archivo-texto">cv.pdf</span>
-                                </span>
+                        <div class="drop-zone mb-3" id="drop-zone">
+                            <i class="fa-solid fa-cloud-arrow-up fs-2 text-success mb-2"></i>
+                            <h6 class="fw-bold mb-1">Haz clic o arrastra tu CV en PDF aquí</h6>
+                            <p class="text-secondary small mb-0">Documento con texto seleccionable</p>
+                            <div id="nombre-archivo-box" class="hidden mt-2">
+                                <span class="badge bg-success-subtle text-success px-3 py-2" id="nombre-archivo-texto">cv.pdf</span>
                             </div>
                         </div>
 
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn-emerald" id="btn-subir">
-                                <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Encontrar Trabajo Más Óptimo (BD)
-                            </button>
-                            <button type="button" class="btn-slate-dark" id="btn-buscar-web">
-                                <i class="fa-solid fa-earth-americas me-2"></i>Buscar Top 5 Empleos en la Web
-                            </button>
-                        </div>
+                        <button type="submit" class="btn-emerald w-100" id="btn-subir">
+                            <i class="fa-solid fa-paper-plane me-2"></i>Postular e Iniciar Evaluación con IA
+                        </button>
                     </form>
 
-                    <!-- Indicador de Carga -->
-                    <div id="loader" class="text-center mt-4 hidden">
-                        <div class="spinner-border text-success spinner-border-sm me-2" role="status"></div>
-                        <span class="small fw-semibold text-secondary" id="loader-text">Analizando perfil con IA...</span>
+                    <div id="loader" class="text-center mt-3 hidden">
+                        <div class="spinner-border text-success spinner-border-sm me-2"></div>
+                        <span class="small fw-semibold text-secondary" id="loader-text">Procesando CV en banco de datos...</span>
+                    </div>
+                </div>
+
+                <!-- ESPACIO PUBLICITARIO LATERAL B2C -->
+                <div class="ad-banner mt-4">
+                    <span class="ad-tag">Publicidad</span>
+                    <div class="small text-success fw-bold mb-1"><i class="fa-solid fa-bolt me-1"></i>ALIANZA CORPORATIVA</div>
+                    <h6 class="fw-bold mb-1">Inglés para Entrevistas de Alto Nivel</h6>
+                    <p class="small text-light opacity-75 mb-2">Prepárate para evaluaciones B2B en empresas multinacionales con simuladores 1 a 1.</p>
+                    <span class="badge bg-emerald-100 text-dark bg-light">Espacio Publicitario Activo</span>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA (MODO 1: VISTA PÚBLICA DEL POSTULANTE — NO REVELA LAS 5 EMPRESAS) -->
+            <div class="col-lg-7" id="panel-vista-postulante">
+                <div class="saas-card h-100">
+                    <!-- Estado antes de subir CV -->
+                    <div id="postulante-espera" class="text-center py-5">
+                        <div class="mb-3 text-success fs-1"><i class="fa-solid fa-robot"></i></div>
+                        <h5 class="fw-bold">Asistente Virtual de Entrevista & Caso Práctico</h5>
+                        <p class="text-secondary small mx-auto" style="max-width: 480px;">
+                            Sube tu CV en el panel izquierdo. Una vez procesado, nuestro Asistente Virtual te realizará una entrevista por competencias y te planteará un caso práctico real de tu especialidad.
+                        </p>
+                        <div class="alert alert-light border small text-secondary mt-3 mb-0">
+                            <i class="fa-solid fa-shield-halved text-success me-1"></i>
+                            <strong>Modalidad de Servicio:</strong> Plataforma 100% gratuita para el postulante. Nuestro servicio es financiado por nuestras empresas contratantes y aliados patrocinadores; cuando una empresa confirme tu selección, te contactaremos directamente para tu incorporación.
+                        </div>
+                    </div>
+
+                    <!-- Estado después de subir CV: Entrevista por Competencias + Prueba Práctica (Ítem A.2) -->
+                    <div id="postulante-entrevista" class="hidden">
+                        <div class="alert alert-success border-0 small mb-3">
+                            <i class="fa-solid fa-circle-check me-1"></i>
+                            <strong>¡CV recibido en nuestro Banco de Profesionales!</strong> Tu perfil ha sido pre-clasificado internamente. Completa ahora el <strong>Paso 2 (Entrevista y Caso Práctico)</strong> para que nuestro equipo tome la decisión final de selección.
+                        </div>
+
+                        <h6 class="fw-bold mb-2"><i class="fa-solid fa-comments text-success me-2"></i>1. Entrevista Técnica por Competencias (Asistente IA)</h6>
+                        <div class="chat-box mb-3">
+                            <div class="bot-bubble">
+                                <strong>Asistente Virtual SkillMatch:</strong> ¡Hola <span id="chat-nombre-postulante">Candidato</span>! Para validar tu experiencia real, responde de forma concreta a estas preguntas clave:
+                                <ul class="mt-2 mb-0 ps-3" id="lista-preguntas-a2"></ul>
+                            </div>
+                            <textarea id="input-respuestas-competencias" class="form-control form-control-sm mt-2" rows="3" placeholder="Escribe aquí tus funciones desempeñadas, problemas que resolviste, herramientas usadas y resultados logrados..."></textarea>
+                        </div>
+
+                        <h6 class="fw-bold mb-2"><i class="fa-solid fa-briefcase text-success me-2"></i>2. Segunda Evaluación: Prueba Práctica Real (<span id="badge-area-caso">Especialidad</span>)</h6>
+                        <div class="p-3 rounded-3 mb-3" style="background-color: #f0fdf4; border: 1px solid #bbf7d0;">
+                            <p class="small fw-semibold text-dark mb-2" id="texto-caso-practico"></p>
+                            <textarea id="input-respuesta-caso" class="form-control form-control-sm" rows="4" placeholder="Desarrolla aquí tu solución práctica paso a paso..."></textarea>
+                        </div>
+
+                        <button type="button" class="btn-emerald w-100" id="btn-enviar-entrevista">
+                            <i class="fa-solid fa-check-double me-2"></i>Enviar Entrevista y Prueba Práctica para Decisión Final
+                        </button>
+
+                        <div id="confirmacion-final-postulante" class="alert alert-dark mt-3 small hidden mb-0"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- COLUMNA DERECHA: RESULTADOS Y PANEL B2B -->
-            <div class="col-lg-7">
+            <!-- COLUMNA DERECHA (MODO 2: PANEL INTERNO EXCLUSIVO DE LA AGENCIA HEADHUNTER) -->
+            <div class="col-lg-7 hidden" id="panel-vista-agencia">
                 <div class="saas-card h-100">
-                    <!-- Pestañas -->
-                    <ul class="nav segmented-tabs mb-4" id="myTab" role="tablist">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-dark"><i class="fa-solid fa-lock me-1"></i>USO INTERNO DE TU EMPRESA</span>
+                        <span class="text-secondary small">Oculto al postulante</span>
+                    </div>
+
+                    <ul class="nav segmented-tabs mb-4" id="agenciaTabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="resultados-tab" data-bs-toggle="tab" data-bs-target="#resultados" type="button" role="tab">
-                                <i class="fa-solid fa-bullseye me-1"></i> Puesto Óptimo (BD)
+                            <button class="nav-link active" id="tab-a1-btn" data-bs-toggle="tab" data-bs-target="#tab-a1" type="button">
+                                A.1 Matriz 100 pts & Empresas
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="top5-tab" data-bs-toggle="tab" data-bs-target="#top5" type="button" role="tab">
-                                <i class="fa-solid fa-trophy me-1"></i> Top 5 Web
+                            <button class="nav-link" id="tab-a3-btn" data-bs-toggle="tab" data-bs-target="#tab-a3" type="button">
+                                A.3 Decisión Final (Ranking)
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="base-tab" data-bs-toggle="tab" data-bs-target="#base" type="button" role="tab">
-                                <i class="fa-solid fa-lock me-1"></i> Leads B2B
+                            <button class="nav-link" id="tab-b1-btn" data-bs-toggle="tab" data-bs-target="#tab-b1" type="button">
+                                B.1 Nuevo Perfil Empresa
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-web-btn" data-bs-toggle="tab" data-bs-target="#tab-web" type="button">
+                                Rastreo Web
                             </button>
                         </li>
                     </ul>
 
-                    <div class="tab-content" id="myTabContent">
-                        <!-- PESTAÑA 1: PUESTO ÓPTIMO (BD) -->
-                        <div class="tab-pane fade show active" id="resultados" role="tabpanel">
-                            <div id="estado-vacio-local" class="text-center py-5 text-secondary">
-                                <i class="fa-solid fa-file-circle-check fs-1 mb-3 text-muted"></i>
-                                <h6 class="fw-bold text-dark">Esperando Currículum</h6>
-                                <p class="small mb-0">Sube tu archivo PDF y presiona el botón verde para descubrir el puesto que mejor se adapta a tus habilidades.</p>
+                    <div class="tab-content">
+                        <!-- PESTAÑA INTERNA 1: MATRIZ A.1 (100 PTS) Y LAS 5 EMPRESAS COMPATIBLES -->
+                        <div class="tab-pane fade show active" id="tab-a1">
+                            <div id="agencia-vacio" class="text-center py-5 text-secondary small">
+                                Sube un CV en el panel izquierdo para ver su desglose en la Matriz de 100 puntos (Ítem A.1) y las 5 empresas con contrato donde encaja.
                             </div>
 
-                            <div id="contenido-optimo" class="hidden">
-                                <div class="optimal-job-card mb-4">
-                                    <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap flex-sm-nowrap">
-                                        <div>
-                                            <span class="badge bg-success mb-2"><i class="fa-solid fa-crown me-1"></i>Trabajo Más Óptimo para tu CV</span>
-                                            <h4 class="fw-bold mb-1" id="optimo-titulo">Analista de Gestión</h4>
-                                            <p class="text-secondary small fw-semibold mb-2">
-                                                <i class="fa-regular fa-building me-1"></i><span id="optimo-empresa">Empresa</span>
-                                            </p>
-                                            <p class="text-secondary small mb-0" id="optimo-desc"></p>
-                                        </div>
-                                        <div class="score-circle" id="score-display">0%</div>
+                            <div id="agencia-contenido-a1" class="hidden">
+                                <div class="p-3 rounded-3 border bg-light mb-3 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="badge bg-success mb-1" id="a1-clasificacion">Candidato Prioritario</span>
+                                        <h6 class="fw-bold mb-0" id="a1-puesto-optimo">Puesto Óptimo</h6>
+                                        <span class="small text-secondary" id="a1-empresa-optima">Empresa con Contrato</span>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fs-3 fw-extrabold text-success" id="a1-total-pts">0 / 100</div>
+                                        <span class="small text-secondary">Puntaje Matriz A.1</span>
                                     </div>
                                 </div>
 
-                                <h6 class="text-uppercase text-secondary fw-bold small mb-3">Comparativa con otras vacantes en la base de datos</h6>
-                                <div id="lista-ranking-local"></div>
+                                <h6 class="fw-bold small text-uppercase text-secondary mb-2">Desglose Matriz de Evaluación de CV (Ítem A.1)</h6>
+                                <div class="row g-2 mb-3 small" id="contenedor-barras-a1"></div>
+
+                                <h6 class="fw-bold small text-uppercase text-secondary mb-2">Top 5 Empresas con Contrato para este Perfil (Uso Interno)</h6>
+                                <div id="lista-ranking-interno"></div>
                             </div>
                         </div>
 
-                        <!-- PESTAÑA 2: TOP 5 WEB MULTIFUENTE -->
-                        <div class="tab-pane fade" id="top5" role="tabpanel">
-                            <div id="lista-top5" class="d-flex flex-column gap-3">
-                                <div class="text-center py-5 text-secondary">
-                                    <i class="fa-solid fa-globe fs-1 mb-3 text-muted"></i>
-                                    <h6 class="fw-bold text-dark">Buscador Multifuente en Tiempo Real</h6>
-                                    <p class="small mb-0">Haz clic en "Buscar Top 5 Empleos en la Web" para rastrear vacantes activas en múltiples portales (LinkedIn, Bumeran, GetOnBoard, The Muse y más).</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- PESTAÑA 3: LEADS B2B (VISTA RECLUTADOR) -->
-                        <div class="tab-pane fade" id="base" role="tabpanel">
-                            <div class="mb-3">
-                                <h6 class="fw-bold mb-1">Candidatos Evaluados (Vista Reclutador)</h6>
-                                <p class="text-secondary small mb-0">Los datos de contacto están protegidos bajo el modelo Pago por Conexión.</p>
+                        <!-- PESTAÑA INTERNA 2: DECISIÓN FINAL PONDERADA (ÍTEM A.3) -->
+                        <div class="tab-pane fade" id="tab-a3">
+                            <div class="mb-2">
+                                <h6 class="fw-bold mb-1">Matriz de Decisión Final mediante IA (Ítem A.3)</h6>
+                                <p class="text-secondary small mb-2">Ponderación oficial: <strong>CV (25%) + Entrevista Técnica (25%) + Prueba Práctica (40%) + Referencias (10%) = 100%</strong></p>
                             </div>
                             <div class="table-responsive">
-                                <table class="table align-middle">
-                                    <thead class="table-light small text-secondary">
+                                <table class="table table-sm align-middle small">
+                                    <thead class="table-light">
                                         <tr>
-                                            <th>Candidato</th>
-                                            <th>Puesto Óptimo</th>
-                                            <th>Match</th>
-                                            <th>Contacto (Regex)</th>
-                                            <th class="text-end">Acción B2B</th>
+                                            <th>Candidato / Correo</th>
+                                            <th>CV (25%)</th>
+                                            <th>Entrev. (25%)</th>
+                                            <th>Práctica (40%)</th>
+                                            <th>Nota Final</th>
+                                            <th>Estado / Contrato</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tabla-candidatos">
+                                    <tbody id="tabla-decision-a3">
                                         <tr>
-                                            <td colspan="5" class="text-center text-secondary py-4 small">Aún no se han procesado candidatos en esta sesión.</td>
+                                            <td colspan="6" class="text-center text-secondary py-4">Aún no hay candidatos evaluados en esta sesión.</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+
+                        <!-- PESTAÑA INTERNA 3: DEFINIR PERFIL DE EMPRESA CON CONTRATO (ÍTEM B.1) -->
+                        <div class="tab-pane fade" id="tab-b1">
+                            <h6 class="fw-bold mb-1">Registrar Convocatoria de Empresa Aliada (Ítem B.1)</h6>
+                            <p class="text-secondary small mb-3">Define qué necesita la empresa con contrato antes de filtrar tu banco de datos de profesionales.</p>
+                            <form id="form-perfil-b1" class="row g-2 small">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold mb-1">Empresa con Contrato</label>
+                                    <input type="text" id="b1-empresa" class="form-control form-control-sm" placeholder="Ej. Corporación Peruana SAC" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold mb-1">Puesto Solicitado</label>
+                                    <input type="text" id="b1-titulo" class="form-control form-control-sm" placeholder="Ej. Analista Administrativo" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold mb-1">Formación (Indispensable)</label>
+                                    <input type="text" id="b1-formacion" class="form-control form-control-sm" placeholder="Egresado o titulado de la carrera" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold mb-1">Experiencia Mínima</label>
+                                    <input type="text" id="b1-experiencia" class="form-control form-control-sm" placeholder="Mínimo 2 años en puestos similares" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold mb-1">Conocimientos Técnicos</label>
+                                    <input type="text" id="b1-conocimientos" class="form-control form-control-sm" placeholder="Dominio de funciones específicas" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold mb-1">Herramientas Informáticas</label>
+                                    <input type="text" id="b1-herramientas" class="form-control form-control-sm" placeholder="Excel, ERP, Power BI, SQL..." required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold mb-1">Competencias Blandas</label>
+                                    <input type="text" id="b1-competencias" class="form-control form-control-sm" placeholder="Responsabilidad, análisis y comunicación" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold mb-1">Resultado Esperado</label>
+                                    <input type="text" id="b1-resultado" class="form-control form-control-sm" placeholder="Desarrollar el trabajo con autonomía" required>
+                                </div>
+                                <div class="col-12 mt-2">
+                                    <button type="submit" class="btn btn-dark btn-sm w-100 fw-semibold">
+                                        <i class="fa-solid fa-plus me-1"></i>Guardar Perfil B.1 en Banco de Datos
+                                    </button>
+                                </div>
+                            </form>
+                            <div id="msg-b1" class="alert alert-success mt-2 py-2 small hidden mb-0"></div>
+                        </div>
+
+                        <!-- PESTAÑA INTERNA 4: RASTREO DE MERCADO WEB -->
+                        <div class="tab-pane fade" id="tab-web">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="small text-secondary">Búsqueda externa multifuente para comparar el perfil en portales web:</span>
+                                <button type="button" class="btn btn-sm btn-dark" id="btn-buscar-web">
+                                    <i class="fa-solid fa-magnifying-glass me-1"></i>Rastrear Top 5 Web
+                                </button>
+                            </div>
+                            <div id="lista-top5" class="d-flex flex-column gap-2 small"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 3. SECCIÓN: CÓMO FUNCIONA -->
-        <section class="corp-section border-top mt-5" id="como-funciona">
-            <div class="text-center mb-5">
-                <span class="badge-soft-emerald mb-2 d-inline-block">Tecnología & Proceso</span>
-                <h2 class="fw-bold">¿Cómo funciona SkillMatch AI?</h2>
-                <p class="text-secondary mx-auto" style="max-width: 640px;">Nuestro motor combina procesamiento de documentos y Modelos de Lenguaje (LLMs) para conectar candidatos con oportunidades reales en segundos.</p>
+        <!-- SECCIÓN CORPORATIVA: QUIÉNES SOMOS, MISIÓN Y VISIÓN -->
+        <section class="py-5 border-top mt-5" id="nosotros">
+            <div class="text-center mb-4">
+                <span class="badge-soft-emerald mb-2 d-inline-block">Agencia de Headhunting & IA</span>
+                <h3 class="fw-bold">Sobre SkillMatch AI</h3>
+                <p class="text-secondary small mx-auto" style="max-width: 620px;">Seleccionamos al profesional idóneo validando su currículum, entrevista por competencias y resolución de casos prácticos reales.</p>
             </div>
-
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="step-badge">1</div>
-                        <h5 class="fw-bold">Extracción Multicapa de PDF</h5>
-                        <p class="text-secondary small mb-0">Leemos el contenido estructural de tu currículum extrayendo competencias técnicas, experiencia, idiomas y datos de contacto mediante expresiones regulares avanzadas.</p>
+                    <div class="saas-card h-100">
+                        <h6 class="fw-bold"><i class="fa-solid fa-building-shield text-success me-2"></i>Quiénes Somos</h6>
+                        <p class="text-secondary small mb-0">Somos una firma tecnológica de selección y evaluación de talento que conecta profesionales calificados con empresas contratantes mediante matrices algorítmicas y pruebas prácticas asistidas por IA.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="step-badge">2</div>
-                        <h5 class="fw-bold">Evaluación Semántica con IA</h5>
-                        <p class="text-secondary small mb-0">A diferencia de los filtros tradicionales por palabras exactas, nuestra IA comprende sinónimos bilingües y el contexto real de tu perfil frente a múltiples industrias.</p>
+                    <div class="saas-card h-100">
+                        <h6 class="fw-bold"><i class="fa-solid fa-bullseye text-success me-2"></i>Nuestra Misión</h6>
+                        <p class="text-secondary small mb-0">Garantizar contrataciones exitosas evaluando no solo títulos o años de experiencia, sino la capacidad real y comprobada del candidato para ejecutar las funciones del puesto con autonomía.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="step-badge">3</div>
-                        <h5 class="fw-bold">Conexión B2B Protegida</h5>
-                        <p class="text-secondary small mb-0">Recomendamos al instante tu vacante ideal y protegemos tu privacidad ocultando tu correo en el panel de reclutadores hasta que una empresa verificada solicite contactarte.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. SECCIÓN CORPORATIVA: QUIÉNES SOMOS, MISIÓN Y VISIÓN -->
-        <section class="corp-section border-top" id="nosotros">
-            <div class="text-center mb-5">
-                <span class="badge-soft-emerald mb-2 d-inline-block">Identidad Corporativa</span>
-                <h2 class="fw-bold">Sobre SkillMatch AI</h2>
-                <p class="text-secondary mx-auto" style="max-width: 640px;">Transformando el reclutamiento y la empleabilidad en Latinoamérica mediante Inteligencia Artificial Generativa.</p>
-            </div>
-
-            <div class="row g-4">
-                <!-- Quiénes Somos -->
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fa-solid fa-building-shield"></i>
-                        </div>
-                        <h5 class="fw-bold">Quiénes Somos</h5>
-                        <p class="text-secondary small mb-0">Somos una plataforma de emparejamiento inteligente de talento. Integramos arquitecturas en la nube, buscadores multifuente en tiempo real y modelos neuronales de lenguaje para hacer que los procesos de selección sean rápidos, transparentes y precisos.</p>
-                    </div>
-                </div>
-
-                <!-- Nuestra Misión -->
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fa-solid fa-bullseye"></i>
-                        </div>
-                        <h5 class="fw-bold">Nuestra Misión</h5>
-                        <p class="text-secondary small mb-0">Eliminar los sesgos humanos y la fricción en la búsqueda de empleo, conectando a profesionales y estudiantes con las empresas adecuadas basándonos 100% en el mérito, las habilidades demostradas y la compatibilidad técnica.</p>
-                    </div>
-                </div>
-
-                <!-- Nuestra Visión -->
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fa-solid fa-eye"></i>
-                        </div>
-                        <h5 class="fw-bold">Nuestra Visión</h5>
-                        <p class="text-secondary small mb-0">Consolidarnos como el estándar líder de reclutamiento asistido por IA y *Headhunting* automatizado en el mercado, donde cada empresa descubra talento validado al instante y cada candidato alcance su máximo potencial profesional.</p>
+                    <div class="saas-card h-100">
+                        <h6 class="fw-bold"><i class="fa-solid fa-eye text-success me-2"></i>Nuestra Visión</h6>
+                        <p class="text-secondary small mb-0">Liderar el mercado de reclutamiento especializado en LATAM a través de un banco de datos inteligente capaz de seleccionar, entrevistar y certificar a los mejores candidatos en tiempo récord.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- 5. FOOTER CORPORATIVO -->
     <footer class="footer-corp">
-        <div class="container">
-            <div class="row g-4 mb-4">
-                <div class="col-md-5">
-                    <a href="#" class="brand-logo mb-3">
-                        <span class="brand-icon"><i class="fa-solid fa-bolt"></i></span>
-                        <span>SkillMatch <span class="fw-normal text-secondary">AI</span></span>
-                    </a>
-                    <p class="small text-secondary mb-0" style="max-width: 360px;">
-                        Plataforma SaaS B2B de análisis semántico de currículums, recomendación inteligente de empleos y gestión de talento con IA.
-                    </p>
-                </div>
-                <div class="col-md-3">
-                    <h6 class="text-white fw-bold small text-uppercase mb-3">Navegación</h6>
-                    <ul class="list-unstyled small d-flex flex-column gap-2 mb-0">
-                        <li><a href="#herramienta" class="nav-link-corp">Evaluador de CV</a></li>
-                        <li><a href="#como-funciona" class="nav-link-corp">Tecnología IA</a></li>
-                        <li><a href="#nosotros" class="nav-link-corp">Misión y Visión</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h6 class="text-white fw-bold small text-uppercase mb-3">Contacto & Ubicación</h6>
-                    <p class="small mb-1"><i class="fa-regular fa-envelope me-2 text-success"></i>hola@skillmatchia.com</p>
-                    <p class="small mb-1"><i class="fa-solid fa-location-dot me-2 text-success"></i>Lima, Perú</p>
-                    <p class="small text-secondary mb-0"><i class="fa-solid fa-shield-halved me-2 text-success"></i>Datos protegidos bajo privacidad por diseño</p>
-                </div>
-            </div>
-            <div class="border-top border-secondary border-opacity-25 pt-3 d-flex flex-wrap justify-content-between align-items-center small">
-                <span>© 2026 SkillMatch AI. Todos los derechos reservados.</span>
-                <span>Impulsado por FastAPI, Meta Llama 3 & Render Cloud</span>
-            </div>
+        <div class="container d-flex flex-wrap justify-content-between align-items-center small gap-2">
+            <span>© 2026 SkillMatch AI — Selección Inteligente de Personal y Gestión B2B.</span>
+            <span>Lima, Perú • contacto@skillmatchia.com</span>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- LÓGICA DE CONEXIÓN CON EL BACKEND EN RENDER -->
     <script>
         const API_BASE_URL = "https://skillmatch-api-1swr.onrender.com";
         const archivoInput = document.getElementById('archivo_cv');
         const dropZone = document.getElementById('drop-zone');
-        const nombreArchivoBox = document.getElementById('nombre-archivo-box');
-        const nombreArchivoTexto = document.getElementById('nombre-archivo-texto');
         const loader = document.getElementById('loader');
         const loaderText = document.getElementById('loader-text');
 
-        // Eventos Drag & Drop para subir PDF
-        dropZone.addEventListener('click', () => archivoInput.click());
+        let candidatoActualId = null;
+        let datosCandidatoActual = null;
 
+        function cambiarVista(modo) {
+            const btnPost = document.getElementById('btn-modo-postulante');
+            const btnAgen = document.getElementById('btn-modo-agencia');
+            const panelPost = document.getElementById('panel-vista-postulante');
+            const panelAgen = document.getElementById('panel-vista-agencia');
+
+            if (modo === 'postulante') {
+                btnPost.classList.add('active');
+                btnAgen.classList.remove('active');
+                panelPost.classList.remove('hidden');
+                panelAgen.classList.add('hidden');
+            } else {
+                btnAgen.classList.add('active');
+                btnPost.classList.remove('active');
+                panelAgen.classList.remove('hidden');
+                panelPost.classList.add('hidden');
+            }
+        }
+
+        dropZone.addEventListener('click', () => archivoInput.click());
         archivoInput.addEventListener('change', () => {
             if (archivoInput.files.length > 0) {
-                nombreArchivoTexto.innerText = archivoInput.files[0].name;
-                nombreArchivoBox.classList.remove('hidden');
+                document.getElementById('nombre-archivo-texto').innerText = archivoInput.files[0].name;
+                document.getElementById('nombre-archivo-box').classList.remove('hidden');
             }
         });
 
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('dragover');
-        });
-
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('dragover');
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('dragover');
-            if (e.dataTransfer.files.length > 0) {
-                archivoInput.files = e.dataTransfer.files;
-                nombreArchivoTexto.innerText = archivoInput.files[0].name;
-                nombreArchivoBox.classList.remove('hidden');
-            }
-        });
-
-        function toggleBotones(desactivar, mensaje = "Analizando...") {
-            document.getElementById('btn-subir').disabled = desactivar;
-            document.getElementById('btn-buscar-web').disabled = desactivar;
-            loaderText.innerText = mensaje;
-            if (desactivar) loader.classList.remove('hidden');
-            else loader.classList.add('hidden');
-        }
-
-        function colorPorPuntaje(score) {
-            if (score >= 70) return "#10b981"; // Verde Esmeralda
-            if (score >= 50) return "#d97706"; // Ámbar
-            return "#475569"; // Gris Pizarra
-        }
-
-        function desbloquearContacto(boton, spanId) {
-            const spanCorreo = document.getElementById(spanId);
-            if (spanCorreo) {
-                spanCorreo.classList.remove('email-blur');
-                spanCorreo.classList.add('email-unblurred');
-            }
-            boton.outerHTML = `<span class="badge bg-success-subtle text-success px-3 py-2"><i class="fa-solid fa-check me-1"></i>Desbloqueado</span>`;
-        }
-
-        // BOTÓN 1: ENCONTRAR TRABAJO MÁS ÓPTIMO (BASE DE DATOS)
+        // 1. SUBIR CV: ACTIVA ENTREVISTA PARA EL POSTULANTE Y MATRIZ A.1 PARA LA AGENCIA
         document.getElementById('formulario-cv').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (archivoInput.files.length === 0) {
-                alert("Por favor selecciona tu CV en formato PDF primero.");
+                alert("Selecciona un archivo PDF primero.");
                 return;
             }
 
-            toggleBotones(true, "Evaluando tu CV contra todas las vacantes de la base de datos...");
+            loader.classList.remove('hidden');
+            loaderText.innerText = "Evaluando CV en Matriz de 100 puntos y preparando entrevista...";
             const formData = new FormData();
             formData.append('archivo_cv', archivoInput.files[0]);
 
             try {
-                const respuesta = await fetch(`${API_BASE_URL}/procesar-cv/`, {
-                    method: 'POST',
-                    body: formData
-                });
+                const respuesta = await fetch(`${API_BASE_URL}/procesar-cv/`, { method: 'POST', body: formData });
                 const datos = await respuesta.json();
 
                 if (respuesta.ok) {
-                    document.getElementById('estado-vacio-local').classList.add('hidden');
-                    document.getElementById('contenido-optimo').classList.remove('hidden');
+                    candidatoActualId = datos.candidato_id;
+                    datosCandidatoActual = datos;
 
-                    const mejor = datos.mejor_vacante || {
-                        titulo: "Especialista Profesional",
-                        empresa: "Empresa Asociada",
-                        descripcion: "Perfil evaluado exitosamente.",
-                        match_score: datos.match_score
+                    // A) Actualizar Vista del Postulante (NO le muestra las empresas, lo lleva al Chatbot A.2)
+                    document.getElementById('postulante-espera').classList.add('hidden');
+                    document.getElementById('postulante-entrevista').classList.remove('hidden');
+                    document.getElementById('confirmacion-final-postulante').classList.add('hidden');
+                    document.getElementById('chat-nombre-postulante').innerText = datos.nombre_candidato;
+                    document.getElementById('badge-area-caso').innerText = datos.area_detectada || "Caso Real";
+                    document.getElementById('texto-caso-practico').innerText = datos.caso_practico;
+
+                    const ulPreguntas = document.getElementById('lista-preguntas-a2');
+                    ulPreguntas.innerHTML = "";
+                    (datos.preguntas_entrevista || []).forEach(p => {
+                        ulPreguntas.innerHTML += `<li class="mb-1">${p}</li>`;
+                    });
+
+                    // B) Actualizar Panel Interno de la Agencia (Matriz A.1 + 5 Empresas)
+                    document.getElementById('agencia-vacio').classList.add('hidden');
+                    document.getElementById('agencia-contenido-a1').classList.remove('hidden');
+
+                    const m = datos.matriz_a1 || {
+                        formacion: 13, experiencia: 20, conocimientos: 20,
+                        herramientas: 12, logros: 8, estabilidad: 8,
+                        total_cv: datos.match_score, clasificacion: "Candidato Evaluado"
                     };
 
-                    document.getElementById('optimo-titulo').innerText = mejor.titulo;
-                    document.getElementById('optimo-empresa').innerText = mejor.empresa;
-                    document.getElementById('optimo-desc').innerText = mejor.descripcion;
+                    document.getElementById('a1-clasificacion').innerText = m.clasificacion;
+                    document.getElementById('a1-puesto-optimo').innerText = datos.mejor_vacante.titulo;
+                    document.getElementById('a1-empresa-optima').innerText = `Empresa destino: ${datos.mejor_vacante.empresa}`;
+                    document.getElementById('a1-total-pts').innerText = `${m.total_cv} / 100`;
 
-                    const scoreCircle = document.getElementById('score-display');
-                    scoreCircle.innerText = `${mejor.match_score}%`;
-                    scoreCircle.style.backgroundColor = colorPorPuntaje(mejor.match_score);
+                    const criterios = [
+                        { nombre: "Formación profesional", val: m.formacion, max: 15 },
+                        { nombre: "Experiencia en puestos similares", val: m.experiencia, max: 25 },
+                        { nombre: "Conocimientos técnicos", val: m.conocimientos, max: 25 },
+                        { nombre: "Herramientas informáticas", val: m.herramientas, max: 15 },
+                        { nombre: "Logros y responsabilidades", val: m.logros, max: 10 },
+                        { nombre: "Estabilidad y trayectoria", val: m.estabilidad, max: 10 }
+                    ];
 
-                    // Pintar Ranking Comparativo
-                    const contenedorRanking = document.getElementById('lista-ranking-local');
-                    contenedorRanking.innerHTML = "";
-                    const listaRanking = (datos.ranking_local || []).slice(1);
-                    listaRanking.forEach((item, idx) => {
-                        contenedorRanking.innerHTML += `
-                            <div class="ranking-row">
-                                <div class="small">
-                                    <span class="fw-bold text-secondary me-2">#${idx + 2}</span>
-                                    <span class="fw-bold text-dark">${item.titulo}</span>
-                                    <span class="text-secondary"> — ${item.empresa}</span>
+                    const contBarras = document.getElementById('contenedor-barras-a1');
+                    contBarras.innerHTML = "";
+                    criterios.forEach(c => {
+                        const pct = Math.round((c.val / c.max) * 100);
+                        contBarras.innerHTML += `
+                            <div class="col-md-6">
+                                <div class="border rounded-2 p-2 bg-white">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>${c.nombre}</span>
+                                        <span class="fw-bold">${c.val} / ${c.max} pts</span>
+                                    </div>
+                                    <div class="progress progress-slim">
+                                        <div class="progress-bar bg-success" style="width: ${pct}%"></div>
+                                    </div>
                                 </div>
-                                <span class="badge bg-light text-dark border fw-bold">${item.match_score}%</span>
                             </div>
                         `;
                     });
 
-                    // Agregar candidato a la tabla Leads B2B
-                    const tabla = document.getElementById('tabla-candidatos');
-                    if (tabla.innerText.includes("Aún no se han procesado")) {
-                        tabla.innerHTML = "";
-                    }
-                    const nombreLimpio = archivoInput.files[0].name.replace('.pdf', '');
-                    const correoReal = datos.correo_extraido || "correo_no_detectado@mail.com";
-                    const idUnico = "email-" + Date.now();
+                    const contRanking = document.getElementById('lista-ranking-interno');
+                    contRanking.innerHTML = "";
+                    (datos.ranking_local || []).forEach((item, idx) => {
+                        contRanking.innerHTML += `
+                            <div class="border rounded-2 p-2 mb-1 d-flex justify-content-between align-items-center small bg-white">
+                                <div>
+                                    <span class="badge bg-dark me-1">#${idx + 1}</span>
+                                    <strong>${item.empresa}</strong> — ${item.titulo}
+                                </div>
+                                <span class="badge bg-success-subtle text-success">${item.match_score}%</span>
+                            </div>
+                        `;
+                    });
 
-                    tabla.innerHTML += `
-                        <tr>
-                            <td class="fw-bold small">${nombreLimpio}</td>
-                            <td class="small">${mejor.titulo}</td>
-                            <td><span class="badge bg-dark">${mejor.match_score}%</span></td>
-                            <td><span id="${idUnico}" class="email-blur small">${correoReal}</span></td>
-                            <td class="text-end">
-                                <button type="button" class="btn btn-sm btn-outline-success fw-semibold" onclick="desbloquearContacto(this, '${idUnico}')">
-                                    <i class="fa-solid fa-unlock-keyhole me-1"></i>Desbloquear
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-
-                    new bootstrap.Tab(document.getElementById('resultados-tab')).show();
+                    // Pre-registrar fila en tabla A.3
+                    actualizarFilaDecisionA3(datos.nombre_candidato, datos.correo_extraido, m.total_cv, 0, 0, (m.total_cv * 0.25).toFixed(1), "Pendiente Entrevista A.2");
                 } else {
-                    alert("Error: " + (datos.detail || datos.mensaje));
+                    alert("Aviso: " + (datos.detail || datos.mensaje));
                 }
-            } catch (error) {
+            } catch (err) {
                 alert("Error de conexión con el servidor en Render.");
             } finally {
-                toggleBotones(false);
+                loader.classList.add('hidden');
             }
         });
 
-        // BOTÓN 2: BUSCAR TOP 5 EMPLEOS EN LA WEB
-        document.getElementById('btn-buscar-web').addEventListener('click', async () => {
-            if (archivoInput.files.length === 0) {
-                alert("Primero selecciona tu archivo PDF en el recuadro.");
+        // 2. ENVIAR ENTREVISTA Y CASO PRÁCTICO (CALCULA DECISIÓN FINAL A.3)
+        document.getElementById('btn-enviar-entrevista').addEventListener('click', async () => {
+            if (!candidatoActualId) return;
+            const respComp = document.getElementById('input-respuestas-competencias').value;
+            const respCaso = document.getElementById('input-respuesta-caso').value;
+
+            if (respComp.trim().length < 15 || respCaso.trim().length < 15) {
+                alert("Por favor responde las preguntas de experiencia y desarrolla el caso práctico antes de enviar.");
                 return;
             }
 
-            toggleBotones(true, "Rastreando múltiples bolsas de empleo en tiempo real...");
-            const formData = new FormData();
-            formData.append('archivo_cv', archivoInput.files[0]);
+            const btn = document.getElementById('btn-enviar-entrevista');
+            btn.disabled = true;
+            btn.innerText = "Evaluando Caso Práctico con IA...";
 
             try {
-                const respuesta = await fetch(`${API_BASE_URL}/explorar-trabajos-web/`, {
+                const respuesta = await fetch(`${API_BASE_URL}/evaluar-entrevista/`, {
                     method: 'POST',
-                    body: formData
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        candidato_id: candidatoActualId,
+                        respuestas_competencias: respComp,
+                        respuesta_caso_practico: respCaso,
+                        referencias_verificadas: true
+                    })
                 });
                 const datos = await respuesta.json();
 
                 if (respuesta.ok) {
-                    const contenedorTop5 = document.getElementById('lista-top5');
-                    contenedorTop5.innerHTML = "";
+                    const conf = document.getElementById('confirmacion-final-postulante');
+                    conf.innerHTML = `<i class="fa-solid fa-lock text-success me-2"></i><strong>Proceso Completado:</strong> ${datos.mensaje_postulante}`;
+                    conf.classList.remove('hidden');
 
-                    (datos.top_5 || []).forEach((trabajo, index) => {
-                        contenedorTop5.innerHTML += `
-                            <div class="ranking-row p-3">
-                                <div class="pe-3">
-                                    <div class="d-flex align-items-center gap-2 mb-1">
-                                        <span class="badge bg-dark">#${index + 1}</span>
-                                        <h6 class="fw-bold mb-0">${trabajo.titulo}</h6>
-                                    </div>
-                                    <span class="text-secondary small"><i class="fa-regular fa-building me-1"></i>${trabajo.empresa}</span>
-                                </div>
-                                <div class="text-end flex-shrink-0">
-                                    <span class="badge bg-success mb-2">${trabajo.match_score}% Match</span><br>
-                                    <a href="${trabajo.link}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-dark fw-semibold">
-                                        Ver Vacante <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        `;
-                    });
-
-                    new bootstrap.Tab(document.getElementById('top5-tab')).show();
+                    const ev = datos.evaluacion_interna_a3;
+                    actualizarFilaDecisionA3(
+                        datosCandidatoActual.nombre_candidato,
+                        datosCandidatoActual.correo_extraido,
+                        ev.cv_25,
+                        ev.entrevista_25,
+                        ev.prueba_practica_40,
+                        ev.nota_final_ponderada,
+                        ev.veredicto
+                    );
                 } else {
-                    alert("Error: " + (datos.detail || datos.mensaje));
+                    alert("Aviso: " + (datos.detail || "Completa tus respuestas."));
                 }
-            } catch (error) {
-                alert("Error de conexión con el servidor en Render.");
+            } catch (err) {
+                alert("Error al evaluar la entrevista.");
             } finally {
-                toggleBotones(false);
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-check-double me-2"></i>Respuestas Enviadas`;
+            }
+        });
+
+        function actualizarFilaDecisionA3(nombre, correo, cv, entrev, practica, finalScore, estado) {
+            const tbody = document.getElementById('tabla-decision-a3');
+            if (tbody.innerText.includes("Aún no hay candidatos")) tbody.innerHTML = "";
+
+            const rowId = `fila-a3-${candidatoActualId}`;
+            const existente = document.getElementById(rowId);
+            const htmlCeldas = `
+                <td>
+                    <div class="fw-bold">${nombre}</div>
+                    <div class="text-secondary">${correo}</div>
+                </td>
+                <td>${cv} pts</td>
+                <td>${entrev > 0 ? entrev + ' pts' : '<span class="text-muted">—</span>'}</td>
+                <td class="fw-bold text-success">${practica > 0 ? practica + ' pts' : '<span class="text-muted">—</span>'}</td>
+                <td><span class="badge bg-dark fs-6">${finalScore}%</span></td>
+                <td><span class="badge bg-success-subtle text-success">${estado}</span></td>
+            `;
+
+            if (existente) {
+                existente.innerHTML = htmlCeldas;
+            } else {
+                tbody.innerHTML += `<tr id="${rowId}">${htmlCeldas}</tr>`;
+            }
+        }
+
+        // 3. REGISTRAR NUEVA CONVOCATORIA DE EMPRESA CON CONTRATO (ÍTEM B.1)
+        document.getElementById('form-perfil-b1').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                empresa: document.getElementById('b1-empresa').value,
+                titulo: document.getElementById('b1-titulo').value,
+                formacion: document.getElementById('b1-formacion').value,
+                experiencia: document.getElementById('b1-experiencia').value,
+                conocimientos: document.getElementById('b1-conocimientos').value,
+                herramientas: document.getElementById('b1-herramientas').value,
+                competencias: document.getElementById('b1-competencias').value,
+                resultado_esperado: document.getElementById('b1-resultado').value
+            };
+
+            try {
+                const r = await fetch(`${API_BASE_URL}/registrar-perfil-empresa/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const d = await r.json();
+                if (r.ok) {
+                    const msg = document.getElementById('msg-b1');
+                    msg.innerText = d.mensaje;
+                    msg.classList.remove('hidden');
+                    document.getElementById('form-perfil-b1').reset();
+                }
+            } catch (err) {
+                alert("Error al guardar la convocatoria.");
+            }
+        });
+
+        // 4. RASTREO EXTERNO MULTIFUENTE
+        document.getElementById('btn-buscar-web').addEventListener('click', async () => {
+            if (archivoInput.files.length === 0) {
+                alert("Sube un CV primero en el panel izquierdo.");
+                return;
+            }
+            const cont = document.getElementById('lista-top5');
+            cont.innerHTML = `<div class="text-center py-3 text-secondary">Consultando portales web en vivo...</div>`;
+            const formData = new FormData();
+            formData.append('archivo_cv', archivoInput.files[0]);
+
+            try {
+                const r = await fetch(`${API_BASE_URL}/explorar-trabajos-web/`, { method: 'POST', body: formData });
+                const d = await r.json();
+                cont.innerHTML = "";
+                (d.top_5 || []).forEach((t, i) => {
+                    cont.innerHTML += `
+                        <div class="border rounded-2 p-2 d-flex justify-content-between align-items-center bg-white">
+                            <div>
+                                <div class="fw-bold">#${i + 1} ${t.titulo}</div>
+                                <div class="text-secondary">${t.empresa}</div>
+                            </div>
+                            <a href="${t.link}" target="_blank" class="btn btn-sm btn-outline-dark">Abrir</a>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                cont.innerHTML = `<div class="text-danger">Error al consultar portales externos.</div>`;
             }
         });
     </script>
