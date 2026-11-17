@@ -68,17 +68,23 @@ VACANTES_INICIALES = [
     {
         "empresa": "Grupo Andino Corporativo",
         "titulo": "Analista de Gestión de Proyectos y Administración",
-        "area_caso": "Administración",
-        "caso_practico": "Caso Práctico (Administración): El área operativa presenta un retraso del 22% en entregas mensuales y sobrecostos administrativos. Elabora un breve informe de gestión indicando qué indicadores (KPIs) revisarías primero y 3 acciones concretas para optimizar el proceso en 30 días.",
+        "area_caso": "Administración y Operaciones",
+        "casos_banco": [
+            "Caso Práctico (Administración): El área operativa presenta un retraso del 22% en entregas mensuales y sobrecostos administrativos. Elabora un breve informe de gestión indicando qué indicadores (KPIs) revisarías primero y 3 acciones concretas para optimizar el proceso en 30 días.",
+            "Caso Práctico (Operaciones y Logística): Detectas una diferencia del 15% entre el inventario físico del almacén y el registro del sistema al cierre de mes. Explica qué protocolo de auditoría aplicarías y cómo reestructurarías el control de entradas y salidas."
+        ],
         "query_en": "project manager operations analyst",
         "slug_pe": "analista-de-proyectos-operaciones",
-        "descripcion": "Gestión de proyectos, planificación estratégica, administración, ingeniería industrial o empresarial. Metodologías ágiles Scrum, Kanban, liderazgo de equipos, comunicación efectiva, optimización de procesos, Excel, informes de gestión y organización."
+        "descripcion": "Gestión de proyectos, planificación estratégica, administración, ingeniería industrial o empresarial. Metodologías ágiles Scrum, Kanban, liderazgo de equipos, comunicación efectiva, optimización de procesos, logística, almacén, inventario, Excel, informes de gestión y organización."
     },
     {
         "empresa": "DataMetrics Perú",
         "titulo": "Analista de Datos y Business Intelligence",
-        "area_caso": "Análisis de datos",
-        "caso_practico": "Caso Práctico (Análisis de Datos): Tienes una base de ventas con 50,000 registros con fechas vacías, clientes duplicados y caída de ingresos en la región Sur. Explica paso a paso cómo limpiarías los datos en Excel/SQL y qué visualizaciones clave incluirías en tu reporte de Power BI para la gerencia.",
+        "area_caso": "Análisis de Datos & BI",
+        "casos_banco": [
+            "Caso Práctico (Análisis de Datos): Tienes una base de ventas con 50,000 registros con fechas vacías, clientes duplicados y caída de ingresos en la región Sur. Explica paso a paso cómo limpiarías los datos en Excel/SQL y qué visualizaciones clave incluirías en tu reporte de Power BI para la gerencia.",
+            "Caso Práctico (Business Intelligence): La dirección comercial necesita un dashboard ejecutivo para medir la retención de clientes trimestral. ¿Qué métricas (KPIs) diseñarías, cómo cruzarías las tablas en SQL y qué alertas tempranas configurarías?"
+        ],
         "query_en": "data analyst business intelligence",
         "slug_pe": "analista-de-datos-power-bi",
         "descripcion": "Análisis de datos, creación de dashboards y reportes en Power BI, Tableau y Excel avanzado. Consultas en SQL, Python para ciencia de datos, estadística, KPIs, limpieza de datos, toma de decisiones y análisis comercial o financiero."
@@ -87,25 +93,34 @@ VACANTES_INICIALES = [
         "empresa": "Finanzas & Capital SAA",
         "titulo": "Analista de Finanzas y Control Contable",
         "area_caso": "Finanzas y Contabilidad",
-        "caso_practico": "Caso Práctico (Finanzas / Contabilidad): Una empresa mediana solicita una línea de crédito comercial por $80,000 USD. Su balance muestra incremento en ventas pero flujo de caja operativo negativo en el último trimestre. ¿Qué ratios financieros evaluarías para determinar su riesgo crediticio y qué asiento o control aplicarías?",
+        "casos_banco": [
+            "Caso Práctico (Finanzas / Contabilidad): Una empresa mediana solicita una línea de crédito comercial por $80,000 USD. Su balance muestra incremento en ventas pero flujo de caja operativo negativo en el último trimestre. ¿Qué ratios financieros evaluarías para determinar su riesgo crediticio y qué control aplicarías?",
+            "Caso Práctico (Control Contable): Al realizar la conciliación bancaria mensual detectas tres abonos no identificados y facturas de proveedores pendientes de provisión. Detalla los asientos de ajuste que realizarías y cómo presentarías el balance actualizado."
+        ],
         "query_en": "financial analyst accountant",
         "slug_pe": "analista-financiero-contable",
         "descripcion": "Contabilidad, finanzas corporativas, análisis de estados financieros, flujo de caja, evaluación de riesgo crediticio, conciliaciones bancarias, registros contables, tributación, Excel financiero, SAP o ERP y elaboración de presupuestos."
     },
     {
         "empresa": "TechCorp Innovación",
-        "titulo": "Desarrollador Backend Python / API",
-        "area_caso": "Ingeniería de Software",
-        "caso_practico": "Caso Práctico (Ingeniería de Software): Un endpoint de facturación tarda 9 segundos en responder cuando hay 200 usuarios simultáneos. Describe cómo diagnosticarías el cuello de botella en la base de datos SQL y qué arquitectura o cambios en la API implementarías para bajar el tiempo a menos de 300 ms.",
+        "titulo": "Desarrollador Backend Python / Software",
+        "area_caso": "Ingeniería de Software & TI",
+        "casos_banco": [
+            "Caso Práctico (Ingeniería de Software): Un endpoint de facturación tarda 9 segundos en responder cuando hay 200 usuarios simultáneos. Describe cómo diagnosticarías el cuello de botella en la base de datos SQL y qué arquitectura o cambios en la API implementarías para bajar el tiempo a menos de 300 ms.",
+            "Caso Práctico (Desarrollo Web & APIs): Necesitas integrar una pasarela de pagos externa con nuestra API en FastAPI asegurando que ninguna transacción se duplique si el usuario hace doble clic. Explica cómo diseñarías la validación, el manejo de errores y las pruebas."
+        ],
         "query_en": "python backend developer",
         "slug_pe": "desarrollador-python-backend",
-        "descripcion": "Desarrollo de aplicaciones backend con Python, FastAPI, Django o Flask. Manejo de bases de datos SQL, PostgreSQL, MySQL, creación de APIs REST, Git, algoritmos, programación orientada a objetos y resolución de problemas técnicos."
+        "descripcion": "Desarrollo de aplicaciones backend y frontend con Python, FastAPI, Django, JavaScript, React, HTML o CSS. Manejo de bases de datos SQL, PostgreSQL, MySQL, creación de APIs REST, Git, algoritmos, programación orientada a objetos y resolución de problemas técnicos."
     },
     {
         "empresa": "GrowthLab LATAM",
         "titulo": "Especialista Comercial y Marketing Estratégico",
-        "area_caso": "Comercial",
-        "caso_practico": "Caso Práctico (Comercial): Necesitamos captar 15 nuevos clientes corporativos B2B en los próximos 60 días con un presupuesto reducido. Desarrolla una estrategia concreta de prospección, embudo de conversión y propuesta de valor para cerrar reuniones efectivas.",
+        "area_caso": "Comercial & Marketing B2B",
+        "casos_banco": [
+            "Caso Práctico (Comercial): Necesitamos captar 15 nuevos clientes corporativos B2B en los próximos 60 días con un presupuesto reducido. Desarrolla una estrategia concreta de prospección, embudo de conversión y propuesta de valor para cerrar reuniones efectivas.",
+            "Caso Práctico (Marketing Digital): Una campaña de captación de leads tiene alto tráfico pero una tasa de conversión menor al 1%. Explica qué cambios aplicarías en la segmentación, el mensaje de valor y el seguimiento en CRM para triplicar los cierres."
+        ],
         "query_en": "commercial sales marketing specialist",
         "slug_pe": "especialista-comercial-marketing",
         "descripcion": "Estrategia comercial, captación de clientes B2B, ventas consultivas, gestión de campañas digitales, CRM, negociación, SEO, SEM, Google Ads, comunicación efectiva, análisis de mercado y fidelización de clientes."
@@ -113,8 +128,11 @@ VACANTES_INICIALES = [
     {
         "empresa": "CloudNet Sistemas",
         "titulo": "Ingeniero de Soporte TI, Redes y Ciberseguridad",
-        "area_caso": "Soporte TI y Sistemas",
-        "caso_practico": "Caso Práctico (TI / Sistemas): El servidor principal de archivos de la oficina deja de responder a las 9:00 AM y 40 usuarios pierden acceso. Detalla el protocolo exacto de diagnóstico de red/sistemas que ejecutarías en los primeros 15 minutos y cómo asegurarías la continuidad operativa.",
+        "area_caso": "Soporte TI, Redes & Cloud",
+        "casos_banco": [
+            "Caso Práctico (TI / Sistemas): El servidor principal de archivos de la oficina deja de responder a las 9:00 AM y 40 usuarios pierden acceso. Detalla el protocolo exacto de diagnóstico de red/sistemas que ejecutarías en los primeros 15 minutos y cómo asegurarías la continuidad operativa.",
+            "Caso Práctico (Ciberseguridad & Redes): Un colaborador reporta haber hecho clic en un enlace sospechoso desde su equipo conectado a la red corporativa. Describe los pasos inmediatos de aislamiento, revisión de credenciales y respaldo que ejecutarías."
+        ],
         "query_en": "it support systems engineer",
         "slug_pe": "ingeniero-soporte-ti-sistemas",
         "descripcion": "Soporte técnico, administración de sistemas Windows y Linux, redes, hardware, software, seguridad informática, servidores en la nube AWS o Azure, mantenimiento de equipos, atención de incidencias y telecomunicaciones."
@@ -124,7 +142,7 @@ VACANTES_INICIALES = [
 PREGUNTAS_ENTREVISTA_A2 = [
     "1. ¿Qué funciones desempeñaba en su anterior trabajo o proyecto principal y qué responsabilidades tenía directamente a su cargo?",
     "2. ¿Qué problemas importantes tuvo que resolver, qué herramientas o sistemas utilizaba y qué resultados concretos consiguió?",
-    "3. ¿Por qué dejó su anterior empleo (o qué busca en esta nueva etapa profesional)?"
+    "3. ¿Por qué dejó su anterior empleo (o qué busca alcanzar en esta nueva etapa profesional)?"
 ]
 
 def asegurar_catalogo_vacantes(session):
@@ -257,34 +275,27 @@ def evaluar_matriz_a1(texto_cv, vacante_info):
     texto_low = ''.join(c for c in unicodedata.normalize('NFD', texto_cv.lower()) if unicodedata.category(c) != 'Mn')
     base_sim = calcular_similitud_inteligente(texto_cv, f"{vacante_info['titulo']} {vacante_info['descripcion']}") / 100.0
 
-    # 1. Formación profesional (máx 15)
     kw_formacion = ["universidad", "egresado", "titulado", "bachiller", "licenciado", "ingenier", "administracion", "instituto", "grado", "maestria", "diplomado", "estudiante"]
     hits_form = sum(1 for k in kw_formacion if k in texto_low)
     pts_formacion = min(15.0, round(8.0 + min(7.0, hits_form * 1.8), 1))
 
-    # 2. Experiencia en puestos similares (máx 25)
-    kw_exp = ["experiencia", "practica", "analista", "asistente", "coordinador", "especialista", "desarrollador", "funciones", "cargo", "empresa", "proyecto", "202"]
+    kw_exp = ["experiencia", "practica", "analista", "asistente", "coordinador", "especialista", "desarrollador", "funciones", "cargo", "empresa", "proyecto", "ayudante", "202"]
     hits_exp = sum(1 for k in kw_exp if k in texto_low)
     pts_experiencia = min(25.0, round((base_sim * 16.0) + min(9.0, hits_exp * 1.3), 1))
 
-    # 3. Conocimientos técnicos (máx 25)
     pts_conocimientos = min(25.0, round(base_sim * 25.0, 1))
 
-    # 4. Manejo de herramientas informáticas (máx 15)
     kw_herr = ["excel", "power bi", "sql", "python", "word", "office", "sap", "erp", "crm", "scrum", "git", "canva", "tableau", "linux", "cloud", "aws", "javascript", "html"]
     hits_herr = sum(1 for k in kw_herr if k in texto_low)
     pts_herramientas = min(15.0, round(6.5 + min(8.5, hits_herr * 1.7), 1))
 
-    # 5. Logros y responsabilidades anteriores (máx 10)
-    kw_logros = ["logr", "mejor", "optimiz", "increment", "reducc", "lider", "implement", "responsable", "meta", "kpi", "resultado", "%"]
+    kw_logros = ["logr", "mejor", "optimiz", "increment", "reducc", "lider", "implement", "responsable", "meta", "kpi", "resultado", "organiz", "%"]
     hits_logros = sum(1 for k in kw_logros if k in texto_low)
     pts_logros = min(10.0, round(4.5 + min(5.5, hits_logros * 1.4), 1))
 
-    # 6. Estabilidad y trayectoria laboral (máx 10)
     anios = re.findall(r'20[12]\d', texto_low)
     pts_estabilidad = min(10.0, round(5.5 + min(4.5, len(set(anios)) * 1.1), 1))
 
-    # Si hay API Key de OpenRouter activa, permitimos que el LLM refine la matriz JSON
     if OPENROUTER_API_KEY and not OPENROUTER_API_KEY.startswith("PEGA_"):
         prompt = f"""
         Evalúa este CV para el puesto '{vacante_info['titulo']}' ({vacante_info['descripcion']}) según esta matriz exacta:
@@ -339,14 +350,66 @@ def evaluar_matriz_a1(texto_cv, vacante_info):
     }
 
 def detectar_mejor_perfil_cv(texto_cv):
-    mejor_item = VACANTES_INICIALES[0]
-    mejor_puntaje = -1.0
-    for item in VACANTES_INICIALES:
-        puntaje = calcular_similitud_inteligente(texto_cv, f"{item['titulo']} {item['descripcion']}")
-        if puntaje > mejor_puntaje:
-            mejor_puntaje = puntaje
-            mejor_item = item
-    return mejor_item
+    """
+    Detecta la especialidad real del candidato sin sesgarse hacia la primera opción
+    y genera un Caso Práctico personalizado al contenido único del CV.
+    """
+    texto_low = ''.join(
+        c for c in unicodedata.normalize('NFD', texto_cv.lower())
+        if unicodedata.category(c) != 'Mn'
+    )
+
+    mapa_especialidades = [
+        (3, ["python", "fastapi", "django", "javascript", "react", "backend", "frontend", "html", "css", "software", "programacion", "git", "api", "codigo", "java", "c++"]),
+        (1, ["power bi", "tableau", "ciencia de datos", "data analyst", "estadistica", "dashboard", "etl", "big data", "machine learning", "pandas", "sql"]),
+        (2, ["contabilidad", "contable", "finanzas", "financiero", "balance", "tributacion", "sunat", "flujo de caja", "auditoria", "costos", "presupuesto", "credito"]),
+        (4, ["marketing", "ventas", "comercial", "seo", "sem", "redes sociales", "publicidad", "clientes", "campanas", "branding", "canva", "b2b", "negociacion"]),
+        (5, ["soporte", "redes", "hardware", "windows", "linux", "ciberseguridad", "servidores", "telecomunicaciones", "helpdesk", "mantenimiento", "aws", "azure"]),
+        (0, ["administracion", "operaciones", "logistica", "almacen", "inventario", "scrum", "kanban", "industrial", "recursos humanos", "rrhh", "abastecimiento"])
+    ]
+
+    mejor_idx = 0
+    max_coincidencias = -1
+
+    for idx_vacante, keywords in mapa_especialidades:
+        coincidencias = sum(2 if kw in texto_low else 0 for kw in keywords)
+        if coincidencias > max_coincidencias and coincidencias > 0:
+            max_coincidencias = coincidencias
+            mejor_idx = idx_vacante
+
+    # Si el CV tiene pocos términos técnicos, desempata por firma única del texto para variar entre CVs
+    firma_cv = sum(ord(c) * (i + 1) for i, c in enumerate(texto_low[:300]))
+    if max_coincidencias <= 0:
+        mejor_idx = firma_cv % len(VACANTES_INICIALES)
+
+    perfil_base = dict(VACANTES_INICIALES[mejor_idx])
+    casos_disponibles = perfil_base.get("casos_banco", [])
+    caso_seleccionado = casos_disponibles[firma_cv % len(casos_disponibles)] if casos_disponibles else ""
+
+    # Intentar generar un Caso Práctico 100% único con IA basado en las funciones/herramientas del CV
+    if OPENROUTER_API_KEY and not OPENROUTER_API_KEY.startswith("PEGA_"):
+        try:
+            prompt_caso = f"""
+            Eres un evaluador técnico de selección. Lee este extracto de CV y redacta UN (1) caso práctico breve (máximo 3 líneas)
+            directamente relacionado con la experiencia, carrera o herramientas específicas que menciona este candidato.
+            Empieza con 'Caso Práctico ({perfil_base['area_caso']}):'. No agregues saludos ni explicaciones adicionales.
+            CV: {texto_cv[:1200]}
+            """
+            r = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
+                json={"model": "meta-llama/llama-3.2-3b-instruct:free", "messages": [{"role": "user", "content": prompt_caso}]},
+                timeout=6
+            )
+            if r.ok and "choices" in r.json():
+                caso_ia = r.json()["choices"][0]["message"]["content"].strip()
+                if len(caso_ia) > 40:
+                    caso_seleccionado = caso_ia
+        except Exception:
+            pass
+
+    perfil_base["caso_practico"] = caso_seleccionado
+    return perfil_base
 
 # ==========================================
 # 5. BUSCADOR WEB INTERNO MULTIFUENTE (PARA LA AGENCIA)
@@ -502,7 +565,6 @@ async def procesar_cv(archivo_cv: UploadFile = File(...)):
         asegurar_catalogo_vacantes(session)
         todas_las_vacantes = session.query(Vacante).all()
 
-        # Evaluar contra todas las empresas aliadas (SOLO VISIBLE PARA LA AGENCIA INTERNA)
         ranking_vacantes = []
         for vac in todas_las_vacantes:
             if "wikipedia" in vac.titulo.lower():
@@ -520,6 +582,12 @@ async def procesar_cv(archivo_cv: UploadFile = File(...)):
         mejor_vacante = ranking_vacantes[0]
         perfil_catalogo = detectar_mejor_perfil_cv(texto_cv)
 
+        # Alinear la vacante principal con la especialidad exacta detectada en el CV
+        for rv in ranking_vacantes:
+            if rv["titulo"] == perfil_catalogo["titulo"]:
+                mejor_vacante = rv
+                break
+
         # Calcular Matriz A.1 (100 puntos)
         matriz_a1 = evaluar_matriz_a1(texto_cv, mejor_vacante)
         mejor_vacante["match_score"] = matriz_a1["total_cv"]
@@ -533,7 +601,6 @@ async def procesar_cv(archivo_cv: UploadFile = File(...)):
         session.add(nuevo_match)
         session.commit()
 
-        # Guardar en memoria interna para cuando complete la entrevista A.2 y decisión A.3
         EVALUACIONES_AGENCIA[nuevo_estudiante.id] = {
             "candidato_id": nuevo_estudiante.id,
             "nombre": nombre_real,
@@ -555,7 +622,6 @@ async def procesar_cv(archivo_cv: UploadFile = File(...)):
             "area_detectada": perfil_catalogo["area_caso"],
             "preguntas_entrevista": PREGUNTAS_ENTREVISTA_A2,
             "caso_practico": perfil_catalogo["caso_practico"],
-            # Datos exclusivos para el panel interno de la agencia (ocultos al postulante)
             "match_score": matriz_a1["total_cv"],
             "matriz_a1": matriz_a1,
             "mejor_vacante": mejor_vacante,
@@ -574,22 +640,20 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
     texto_comp = payload.respuestas_competencias.strip()
     texto_caso = payload.respuesta_caso_practico.strip()
 
-    if len(texto_comp) < 15 or len(texto_caso) < 15:
-        raise HTTPException(status_code=400, detail="Por favor responde con mayor detalle tanto las preguntas de experiencia como el caso práctico.")
+    if len(texto_comp) < 10 or len(texto_caso) < 10:
+        raise HTTPException(status_code=400, detail="Por favor responde tanto las preguntas de experiencia como el caso práctico.")
 
-    # Evaluar calidad de la entrevista técnica (0-100) y prueba práctica (0-100)
     palabras_comp = len(texto_comp.split())
     palabras_caso = len(texto_caso.split())
 
-    kw_valor = ["resultado", "logr", "mejor", "sistem", "excel", "indicador", "kpi", "equipo", "client", "proces", "solucion", "analisis", "control", "estrategia", "datos"]
+    kw_valor = ["resultado", "logr", "mejor", "sistem", "excel", "indicador", "kpi", "equipo", "client", "proces", "solucion", "analisis", "control", "estrategia", "datos", "inventario", "tiempo"]
     hits_comp = sum(1 for k in kw_valor if k in texto_comp.lower())
     hits_caso = sum(1 for k in kw_valor if k in texto_caso.lower())
 
-    score_entrevista = min(98.0, round(58.0 + min(25.0, palabras_comp * 0.45) + (hits_comp * 3.0), 1))
-    score_caso = min(98.0, round(60.0 + min(24.0, palabras_caso * 0.45) + (hits_caso * 3.2), 1))
+    score_entrevista = min(98.0, round(60.0 + min(24.0, palabras_comp * 0.5) + (hits_comp * 3.0), 1))
+    score_caso = min(98.0, round(62.0 + min(24.0, palabras_caso * 0.5) + (hits_caso * 3.2), 1))
     score_referencias = 95.0 if payload.referencias_verificadas else 60.0
 
-    # Si hay OpenRouter, pedimos evaluación experta del Caso Práctico
     if OPENROUTER_API_KEY and not OPENROUTER_API_KEY.startswith("PEGA_"):
         try:
             prompt = f"""
@@ -609,8 +673,8 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
                 ini, fin = c.find("{"), c.rfind("}") + 1
                 if ini != -1 and fin > ini:
                     d = json.loads(c[ini:fin])
-                    score_entrevista = min(98.0, max(45.0, float(d.get("entrevista", score_entrevista))))
-                    score_caso = min(98.0, max(45.0, float(d.get("caso_practico", score_caso))))
+                    score_entrevista = min(98.0, max(50.0, float(d.get("entrevista", score_entrevista))))
+                    score_caso = min(98.0, max(50.0, float(d.get("caso_practico", score_caso))))
         except Exception:
             pass
 
@@ -628,11 +692,11 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
     )
 
     if nota_final_a3 >= 80:
-        veredicto = "APROBADO PRIORITARIO — Listo para presentar a Empresa con Contrato"
+        veredicto = "APROBADO PRIORITARIO — Listo para presentar a Empresa Aliada"
     elif nota_final_a3 >= 68:
         veredicto = "APTO EN RESERVA — Segunda validación recomendada"
     else:
-        veredicto = "EN OBSERVACIÓN — No alcanza puntaje mínimo en prueba práctica"
+        veredicto = "EN OBSERVACIÓN — Reforzar prueba práctica"
 
     if payload.candidato_id in EVALUACIONES_AGENCIA:
         EVALUACIONES_AGENCIA[payload.candidato_id].update({
@@ -645,7 +709,7 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
         })
 
     return {
-        "mensaje_postulante": "Tus respuestas y tu caso práctico han sido registrados con éxito. Nuestro equipo evaluará tu desempeño y te contactará cuando tengamos la confirmación de la empresa para la firma de contrato.",
+        "mensaje_postulante": "Tus respuestas y tu caso práctico han sido registrados con éxito (100% gratuito para el postulante). Nuestro equipo presentará tu informe técnico a la empresa contratante y te contactaremos directamente al confirmarse tu selección.",
         "evaluacion_interna_a3": {
             "cv_25": score_cv,
             "entrevista_25": score_entrevista,
