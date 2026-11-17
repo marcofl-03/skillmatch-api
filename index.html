@@ -253,7 +253,7 @@
     <main class="container my-4">
         <div class="text-center mb-4">
             <h1 class="fw-bold mb-1" style="font-size: 2rem;">Centro de Selección y Evaluación de Talento con IA</h1>
-            <p class="text-secondary small mb-0">Sube tu CV sin costo. Evaluamos tus competencias mediante IA para conectarte con nuestras empresas contratantes.</p>
+            <p class="text-secondary small mb-0">Sube tu CV 100% gratis. Evaluamos tus competencias mediante IA para conectarte con nuestras empresas contratantes.</p>
         </div>
 
         <div class="row g-4">
@@ -261,11 +261,11 @@
             <div class="col-lg-5">
                 <div class="saas-card">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="badge-soft-emerald">Postulación Gratuita</span>
+                        <span class="badge-soft-emerald">100% Gratuito para Candidatos</span>
                         <span class="text-secondary small">Paso 1 de 2</span>
                     </div>
                     <h5 class="fw-bold mb-1">Registra tu Currículum (PDF)</h5>
-                    <p class="text-secondary small mb-3">Nuestro comité de IA evaluará tu perfil en nuestro banco de datos y habilitará tu entrevista de competencias.</p>
+                    <p class="text-secondary small mb-3">Nuestro motor de IA pre-seleccionará la vacante ideal para tu perfil y habilitará tu entrevista de competencias.</p>
 
                     <form id="formulario-cv">
                         <input type="file" id="archivo_cv" accept=".pdf" class="d-none" required>
@@ -299,7 +299,7 @@
                 </div>
             </div>
 
-            <!-- COLUMNA DERECHA (MODO 1: VISTA PÚBLICA DEL POSTULANTE — NO REVELA LAS 5 EMPRESAS) -->
+            <!-- COLUMNA DERECHA (MODO 1: VISTA PÚBLICA DEL POSTULANTE — ESTILO MICHAEL PAGE) -->
             <div class="col-lg-7" id="panel-vista-postulante">
                 <div class="saas-card h-100">
                     <!-- Estado antes de subir CV -->
@@ -307,7 +307,7 @@
                         <div class="mb-3 text-success fs-1"><i class="fa-solid fa-robot"></i></div>
                         <h5 class="fw-bold">Asistente Virtual de Entrevista & Caso Práctico</h5>
                         <p class="text-secondary small mx-auto" style="max-width: 480px;">
-                            Sube tu CV en el panel izquierdo. Una vez procesado, nuestro Asistente Virtual te realizará una entrevista por competencias y te planteará un caso práctico real de tu especialidad.
+                            Sube tu CV en el panel izquierdo. Una vez procesado, conocerás el puesto y sector al que calificas, y nuestro Asistente Virtual te planteará una entrevista por competencias junto con un caso práctico real.
                         </p>
                         <div class="alert alert-light border small text-secondary mt-3 mb-0">
                             <i class="fa-solid fa-shield-halved text-success me-1"></i>
@@ -315,24 +315,40 @@
                         </div>
                     </div>
 
-                    <!-- Estado después de subir CV: Entrevista por Competencias + Prueba Práctica (Ítem A.2) -->
+                    <!-- Estado después de subir CV: Ficha Estilo Michael Page + Entrevista + Caso Práctico (Ítem A.2) -->
                     <div id="postulante-entrevista" class="hidden">
-                        <div class="alert alert-success border-0 small mb-3">
-                            <i class="fa-solid fa-circle-check me-1"></i>
-                            <strong>¡CV recibido en nuestro Banco de Profesionales!</strong> Tu perfil ha sido pre-clasificado internamente. Completa ahora el <strong>Paso 2 (Entrevista y Caso Práctico)</strong> para que nuestro equipo tome la decisión final de selección.
+                        <!-- RESUMEN DE EMPLEO ESTILO MICHAEL PAGE -->
+                        <div class="p-3 rounded-3 mb-3" style="background-color: #f0fdf4; border: 1px solid #bbf7d0;">
+                            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
+                                <div>
+                                    <span class="badge bg-success mb-1"><i class="fa-solid fa-circle-check me-1"></i>Perfil Pre-seleccionado por IA</span>
+                                    <h5 class="fw-bold text-dark mb-0" id="postulante-puesto-optimo">Especialista / Analista</h5>
+                                    <p class="small text-secondary mb-0">
+                                        <i class="fa-solid fa-building-lock me-1 text-success"></i>
+                                        <strong>Empresa:</strong> Importante corporación líder en el sector <span id="postulante-sector-optimo">Empresarial</span> (Vacante Confidencial + 4 empresas aliadas)
+                                    </p>
+                                </div>
+                                <span class="badge bg-dark font-monospace" id="postulante-ref-codigo">REF: SM-112026</span>
+                            </div>
+                            <div class="row g-2 pt-2 border-top border-success border-opacity-25 small text-secondary">
+                                <div class="col-6 col-md-3"><strong>Ubicación:</strong> Lima, Perú</div>
+                                <div class="col-6 col-md-3"><strong>Contrato:</strong> Permanente</div>
+                                <div class="col-6 col-md-3"><strong>Beneficios:</strong> De ley + Línea de carrera</div>
+                                <div class="col-6 col-md-3"><strong>Costo Postulante:</strong> 100% Gratuito</div>
+                            </div>
                         </div>
 
                         <h6 class="fw-bold mb-2"><i class="fa-solid fa-comments text-success me-2"></i>1. Entrevista Técnica por Competencias (Asistente IA)</h6>
                         <div class="chat-box mb-3">
                             <div class="bot-bubble">
-                                <strong>Asistente Virtual SkillMatch:</strong> ¡Hola <span id="chat-nombre-postulante">Candidato</span>! Para validar tu experiencia real, responde de forma concreta a estas preguntas clave:
+                                <strong>Asistente Virtual SkillMatch:</strong> ¡Hola <span id="chat-nombre-postulante">Candidato</span>! Para validar tu experiencia frente al requerimiento del puesto, responde de forma concreta a estas preguntas:
                                 <ul class="mt-2 mb-0 ps-3" id="lista-preguntas-a2"></ul>
                             </div>
                             <textarea id="input-respuestas-competencias" class="form-control form-control-sm mt-2" rows="3" placeholder="Escribe aquí tus funciones desempeñadas, problemas que resolviste, herramientas usadas y resultados logrados..."></textarea>
                         </div>
 
                         <h6 class="fw-bold mb-2"><i class="fa-solid fa-briefcase text-success me-2"></i>2. Segunda Evaluación: Prueba Práctica Real (<span id="badge-area-caso">Especialidad</span>)</h6>
-                        <div class="p-3 rounded-3 mb-3" style="background-color: #f0fdf4; border: 1px solid #bbf7d0;">
+                        <div class="p-3 rounded-3 mb-3" style="background-color: #f8fafc; border: 1px solid #cbd5e1;">
                             <p class="small fw-semibold text-dark mb-2" id="texto-caso-practico"></p>
                             <textarea id="input-respuesta-caso" class="form-control form-control-sm" rows="4" placeholder="Desarrolla aquí tu solución práctica paso a paso..."></textarea>
                         </div>
@@ -350,8 +366,8 @@
             <div class="col-lg-7 hidden" id="panel-vista-agencia">
                 <div class="saas-card h-100">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="badge bg-dark"><i class="fa-solid fa-lock me-1"></i>USO INTERNO DE TU EMPRESA</span>
-                        <span class="text-secondary small">Oculto al postulante</span>
+                        <span class="badge bg-dark"><i class="fa-solid fa-lock me-1"></i>USO INTERNO DE TU AGENCIA B2B</span>
+                        <span class="text-secondary small">Identidad de empresas visible</span>
                     </div>
 
                     <ul class="nav segmented-tabs mb-4" id="agenciaTabs" role="tablist">
@@ -420,7 +436,7 @@
                                             <th>Entrev. (25%)</th>
                                             <th>Práctica (40%)</th>
                                             <th>Nota Final</th>
-                                            <th>Estado / Contrato</th>
+                                            <th>Estado / Recomendación</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tabla-decision-a3">
@@ -568,7 +584,7 @@
             }
         });
 
-        // 1. SUBIR CV: ACTIVA ENTREVISTA PARA EL POSTULANTE Y MATRIZ A.1 PARA LA AGENCIA
+        // 1. SUBIR CV: ACTIVA FICHA MICHAEL PAGE + ENTREVISTA PARA EL POSTULANTE Y MATRIZ A.1 PARA LA AGENCIA
         document.getElementById('formulario-cv').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (archivoInput.files.length === 0) {
@@ -577,7 +593,7 @@
             }
 
             loader.classList.remove('hidden');
-            loaderText.innerText = "Evaluando CV en Matriz de 100 puntos y preparando entrevista...";
+            loaderText.innerText = "Evaluando CV en Matriz de 100 puntos y generando caso práctico...";
             const formData = new FormData();
             formData.append('archivo_cv', archivoInput.files[0]);
 
@@ -589,13 +605,23 @@
                     candidatoActualId = datos.candidato_id;
                     datosCandidatoActual = datos;
 
-                    // A) Actualizar Vista del Postulante (NO le muestra las empresas, lo lleva al Chatbot A.2)
+                    // A) Actualizar Vista del Postulante (Ficha Resumen estilo Michael Page + Chatbot A.2)
                     document.getElementById('postulante-espera').classList.add('hidden');
                     document.getElementById('postulante-entrevista').classList.remove('hidden');
                     document.getElementById('confirmacion-final-postulante').classList.add('hidden');
+
+                    document.getElementById('postulante-puesto-optimo').innerText = datos.mejor_vacante.titulo;
+                    document.getElementById('postulante-sector-optimo').innerText = datos.area_detectada || "Corporativo";
+                    document.getElementById('postulante-ref-codigo').innerText = `REF: SM-112026-${1000 + datos.candidato_id}`;
+
                     document.getElementById('chat-nombre-postulante').innerText = datos.nombre_candidato;
                     document.getElementById('badge-area-caso').innerText = datos.area_detectada || "Caso Real";
                     document.getElementById('texto-caso-practico').innerText = datos.caso_practico;
+
+                    // Limpiar campos de respuesta para una nueva evaluación
+                    document.getElementById('input-respuestas-competencias').value = "";
+                    document.getElementById('input-respuesta-caso').value = "";
+                    document.getElementById('btn-enviar-entrevista').innerHTML = `<i class="fa-solid fa-check-double me-2"></i>Enviar Entrevista y Prueba Práctica para Decisión Final`;
 
                     const ulPreguntas = document.getElementById('lista-preguntas-a2');
                     ulPreguntas.innerHTML = "";
@@ -615,7 +641,7 @@
 
                     document.getElementById('a1-clasificacion').innerText = m.clasificacion;
                     document.getElementById('a1-puesto-optimo').innerText = datos.mejor_vacante.titulo;
-                    document.getElementById('a1-empresa-optima').innerText = `Empresa destino: ${datos.mejor_vacante.empresa}`;
+                    document.getElementById('a1-empresa-optima').innerText = `Empresa destino (Confidencial): ${datos.mejor_vacante.empresa}`;
                     document.getElementById('a1-total-pts').innerText = `${m.total_cv} / 100`;
 
                     const criterios = [
@@ -660,7 +686,6 @@
                         `;
                     });
 
-                    // Pre-registrar fila en tabla A.3
                     actualizarFilaDecisionA3(datos.nombre_candidato, datos.correo_extraido, m.total_cv, 0, 0, (m.total_cv * 0.25).toFixed(1), "Pendiente Entrevista A.2");
                 } else {
                     alert("Aviso: " + (datos.detail || datos.mensaje));
@@ -678,7 +703,7 @@
             const respComp = document.getElementById('input-respuestas-competencias').value;
             const respCaso = document.getElementById('input-respuesta-caso').value;
 
-            if (respComp.trim().length < 15 || respCaso.trim().length < 15) {
+            if (respComp.trim().length < 10 || respCaso.trim().length < 10) {
                 alert("Por favor responde las preguntas de experiencia y desarrolla el caso práctico antes de enviar.");
                 return;
             }
@@ -702,7 +727,7 @@
 
                 if (respuesta.ok) {
                     const conf = document.getElementById('confirmacion-final-postulante');
-                    conf.innerHTML = `<i class="fa-solid fa-lock text-success me-2"></i><strong>Proceso Completado:</strong> ${datos.mensaje_postulante}`;
+                    conf.innerHTML = `<i class="fa-solid fa-circle-check text-success me-2"></i><strong>Proceso Completado:</strong> ${datos.mensaje_postulante}`;
                     conf.classList.remove('hidden');
 
                     const ev = datos.evaluacion_interna_a3;
