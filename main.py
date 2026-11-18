@@ -333,10 +333,10 @@ def evaluar_matriz_a1(texto_cv, vacante_info):
 
     if total_100 >= 80:
         clasificacion = "Candidato Prioritario (80 - 100 pts)"
-    elif total_100 >= 65:
-        clasificacion = "Candidato para Evaluar (65 - 79 pts)"
+    elif total_100 >= 75:
+        clasificacion = "Candidato para Evaluar (75 - 79 pts)"
     else:
-        clasificacion = "No Prioritario (< 65 pts)"
+        clasificacion = "No Prioritario (< 75 pts)"
 
     return {
         "formacion": pts_formacion,
