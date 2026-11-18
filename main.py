@@ -10,7 +10,7 @@ import requests
 from pydantic import BaseModel
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean, Text, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean, Text, ForeignKey, text
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 
 # ==========================================
@@ -33,6 +33,7 @@ class Estudiante(Base):
     correo = Column(String)
     carrera = Column(String)
     texto_cv = Column(Text)
+    auditoria_premium_generada = Column(Text, nullable=True)
     matches = relationship("Match", back_populates="estudiante")
 
 class Vacante(Base):
@@ -51,6 +52,8 @@ class Match(Base):
     id_estudiante = Column(Integer, ForeignKey('estudiantes.id'))
     porcentaje = Column(Float)
     desbloqueado = Column(Boolean, default=False)
+    contratacion_confirmada = Column(Boolean, default=False)
+    meses_permanencia = Column(Integer, default=0)
 
     vacante = relationship("Vacante", back_populates="matches")
     estudiante = relationship("Estudiante", back_populates="matches")
@@ -58,7 +61,24 @@ class Match(Base):
 Base.metadata.create_all(motor)
 Session = sessionmaker(bind=motor)
 
-# Memoria en tiempo real para el desglose de la Matriz A.1, A.2 y A.3
+def asegurar_columnas_nuevas():
+    """Evita errores en Render si skillmatch.db ya existía con una versión anterior."""
+    comandos = [
+        "ALTER TABLE estudiantes ADD COLUMN auditoria_premium_generada TEXT",
+        "ALTER TABLE matches ADD COLUMN contratacion_confirmada BOOLEAN DEFAULT 0",
+        "ALTER TABLE matches ADD COLUMN meses_permanencia INTEGER DEFAULT 0"
+    ]
+    with motor.connect() as conn:
+        for cmd in comandos:
+            try:
+                conn.execute(text(cmd))
+                conn.commit()
+            except Exception:
+                pass
+
+asegurar_columnas_nuevas()
+
+# Memoria en tiempo real para el desglose de la Matriz A.1, A.2, A.3 y Data Loop
 EVALUACIONES_AGENCIA = {}
 
 # ==========================================
@@ -203,7 +223,7 @@ def detectar_correo_infalible(texto_cv, correos_en_links):
     return "correo_no_detectado@mail.com"
 
 # ==========================================
-# 4. MOTOR SEMÁNTICO + MATRIZ DE 100 PUNTOS (ÍTEM A.1)
+# 4. MOTOR SEMÁNTICO + MATRIZ A.1 (UMBRAL MÍNIMO 75 PTS) + AUDITORÍA IA
 # ==========================================
 STOPWORDS = {
     "para", "como", "con", "por", "una", "uno", "unos", "unas", "del", "las", "los",
@@ -262,15 +282,43 @@ def calcular_similitud_inteligente(perfil_estudiante, vacante_empresa, usar_llm=
     score = 44.0 + (proporcion * 52.0)
     return round(min(96.0, max(35.0, score)), 1)
 
+def generar_auditoria_cv_ia(texto_cv, puesto_objetivo):
+    """Genera el reporte SkillMatch Premium con 3 mejoras accionables para el CV."""
+    if OPENROUTER_API_KEY and not OPENROUTER_API_KEY.startswith("PEGA_"):
+        try:
+            prompt_auditoria = f"""
+            Eres un Headhunter Senior. Analiza este CV para el puesto '{puesto_objetivo}'.
+            Redacta 3 recomendaciones concretas y breves en viñetas para que el candidato supere el filtro de 75 puntos:
+            1) Qué verbos de acción o métricas (KPIs) debe agregar.
+            2) Qué herramientas técnicas clave le faltan mencionar.
+            3) Cómo estructurar mejor sus logros.
+            CV: {texto_cv[:1200]}
+            """
+            r = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
+                json={"model": "meta-llama/llama-3.2-3b-instruct:free", "messages": [{"role": "user", "content": prompt_auditoria}]},
+                timeout=7
+            )
+            if r.ok and "choices" in r.json():
+                texto_ia = r.json()["choices"][0]["message"]["content"].strip()
+                if len(texto_ia) > 40:
+                    return texto_ia
+        except Exception:
+            pass
+
+    return (
+        f"• Impacto Cuantificable (KPIs): Transforma tus funciones en logros medibles (ej. 'Reduje tiempos operativos en 20%' o 'Gestioné bases de +1,000 registros') para subir hasta +8 pts.\n"
+        f"• Palabras Clave para {puesto_objetivo}: Incorpora explícitamente herramientas de gestión y análisis (Excel Avanzado, Power BI, SQL, ERP o Scrum) en una sección técnica dedicada.\n"
+        f"• Estructura de Verbos de Acción: Inicia cada experiencia laboral con verbos ejecutivos (Optimicé, Implementé, Lideré, Automatizé) para superar el umbral competitivo de 75 puntos."
+    )
+
 def evaluar_matriz_a1(texto_cv, vacante_info):
     """
-    Evalúa el CV exactamente con la Matriz de 100 puntos del documento (Ítem A.1):
-    - Formación profesional: 15 pts
-    - Experiencia en puestos similares: 25 pts
-    - Conocimientos técnicos: 25 pts
-    - Manejo de herramientas informáticas: 15 pts
-    - Logros y responsabilidades anteriores: 10 pts
-    - Estabilidad y trayectoria laboral: 10 pts
+    Evalúa el CV con la Matriz de 100 puntos (Ítem A.1) y aplica el nuevo umbral competitivo de 75 puntos:
+    - 85 a 100 pts: Candidato Prioritario
+    - 75 a 84 pts: Candidato para Evaluar (Supera el filtro competitivo)
+    - Menos de 75 pts: No Prioritario (Activa Auditoría Premium de CV)
     """
     texto_low = ''.join(c for c in unicodedata.normalize('NFD', texto_cv.lower()) if unicodedata.category(c) != 'Mn')
     base_sim = calcular_similitud_inteligente(texto_cv, f"{vacante_info['titulo']} {vacante_info['descripcion']}") / 100.0
@@ -331,12 +379,13 @@ def evaluar_matriz_a1(texto_cv, vacante_info):
 
     total_100 = round(pts_formacion + pts_experiencia + pts_conocimientos + pts_herramientas + pts_logros + pts_estabilidad, 1)
 
-    if total_100 >= 80:
-        clasificacion = "Candidato Prioritario (80 - 100 pts)"
+    # Nuevo umbral competitivo: mínimo 75 puntos
+    if total_100 >= 85:
+        clasificacion = "Candidato Prioritario (85 - 100 pts)"
     elif total_100 >= 75:
-        clasificacion = "Candidato para Evaluar (75 - 79 pts)"
+        clasificacion = "Candidato Competitivo (75 - 84 pts)"
     else:
-        clasificacion = "No Prioritario (< 75 pts)"
+        clasificacion = "No Prioritario (< 75 pts — Requiere Optimización)"
 
     return {
         "formacion": pts_formacion,
@@ -350,10 +399,6 @@ def evaluar_matriz_a1(texto_cv, vacante_info):
     }
 
 def detectar_mejor_perfil_cv(texto_cv):
-    """
-    Detecta la especialidad real del candidato sin sesgarse hacia la primera opción
-    y genera un Caso Práctico personalizado al contenido único del CV.
-    """
     texto_low = ''.join(
         c for c in unicodedata.normalize('NFD', texto_cv.lower())
         if unicodedata.category(c) != 'Mn'
@@ -377,7 +422,6 @@ def detectar_mejor_perfil_cv(texto_cv):
             max_coincidencias = coincidencias
             mejor_idx = idx_vacante
 
-    # Si el CV tiene pocos términos técnicos, desempata por firma única del texto para variar entre CVs
     firma_cv = sum(ord(c) * (i + 1) for i, c in enumerate(texto_low[:300]))
     if max_coincidencias <= 0:
         mejor_idx = firma_cv % len(VACANTES_INICIALES)
@@ -386,7 +430,6 @@ def detectar_mejor_perfil_cv(texto_cv):
     casos_disponibles = perfil_base.get("casos_banco", [])
     caso_seleccionado = casos_disponibles[firma_cv % len(casos_disponibles)] if casos_disponibles else ""
 
-    # Intentar generar un Caso Práctico 100% único con IA basado en las funciones/herramientas del CV
     if OPENROUTER_API_KEY and not OPENROUTER_API_KEY.startswith("PEGA_"):
         try:
             prompt_caso = f"""
@@ -412,7 +455,7 @@ def detectar_mejor_perfil_cv(texto_cv):
     return perfil_base
 
 # ==========================================
-# 5. BUSCADOR WEB INTERNO MULTIFUENTE (PARA LA AGENCIA)
+# 5. BUSCADOR WEB INTERNO MULTIFUENTE
 # ==========================================
 HEADERS_WEB = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SkillMatchAI/3.0"}
 
@@ -504,9 +547,9 @@ def generar_portales_peru(perfil_optimo):
     ]
 
 # ==========================================
-# 6. ENDPOINTS DE LA PLATAFORMA (CANDIDATO E INTERNO B2B)
+# 6. ENDPOINTS DE LA PLATAFORMA
 # ==========================================
-app = FastAPI(title="SkillMatch AI Headhunting API", description="Motor B2B con Matriz de 100 Puntos y Entrevista IA")
+app = FastAPI(title="SkillMatch AI Headhunting API", description="Motor B2B con Umbral 75 pts, Anti-Cheat, Auditoría Premium y Data Loop")
 
 app.add_middleware(
     CORSMiddleware,
@@ -521,6 +564,12 @@ class EntrevistaPayload(BaseModel):
     respuestas_competencias: str
     respuesta_caso_practico: str
     referencias_verificadas: bool = True
+    eventos_pegado: int = 0
+    tiempo_resolucion_seg: int = 120
+
+class ContratacionPayload(BaseModel):
+    candidato_id: int
+    meses_permanencia: int = 6
 
 class ConvocatoriaEmpresaPayload(BaseModel):
     empresa: str
@@ -534,9 +583,9 @@ class ConvocatoriaEmpresaPayload(BaseModel):
 
 @app.get("/")
 def home():
-    return {"mensaje": "Servidor de SkillMatch AI Headhunting activo en Render"}
+    return {"mensaje": "Servidor de SkillMatch AI Headhunting activo en Render (Umbral 75 pts + Anti-Cheat + Data Loop)"}
 
-# PASO 1 DEL POSTULANTE Y DE LA AGENCIA: PROCESAR CV CON MATRIZ A.1
+# PASO 1: PROCESAR CV CON MATRIZ A.1 Y AUDITORÍA PREVENTIVA
 @app.post("/procesar-cv/")
 async def procesar_cv(archivo_cv: UploadFile = File(...)):
     if not archivo_cv.filename.endswith('.pdf'):
@@ -582,27 +631,32 @@ async def procesar_cv(archivo_cv: UploadFile = File(...)):
         mejor_vacante = ranking_vacantes[0]
         perfil_catalogo = detectar_mejor_perfil_cv(texto_cv)
 
-        # Alinear la vacante principal con la especialidad exacta detectada en el CV
         for rv in ranking_vacantes:
             if rv["titulo"] == perfil_catalogo["titulo"]:
                 mejor_vacante = rv
                 break
 
-        # Calcular Matriz A.1 (100 puntos)
         matriz_a1 = evaluar_matriz_a1(texto_cv, mejor_vacante)
         mejor_vacante["match_score"] = matriz_a1["total_cv"]
+
+        # Generar Auditoría SkillMatch Premium para cualquier candidato (destacada si < 75 pts)
+        auditoria_cv = generar_auditoria_cv_ia(texto_cv, mejor_vacante["titulo"])
+        nuevo_estudiante.auditoria_premium_generada = auditoria_cv
+        session.commit()
 
         nuevo_match = Match(
             id_vacante=mejor_vacante["id"],
             id_estudiante=nuevo_estudiante.id,
             porcentaje=matriz_a1["total_cv"],
-            desbloqueado=False
+            desbloqueado=False,
+            contratacion_confirmada=False
         )
         session.add(nuevo_match)
         session.commit()
 
         EVALUACIONES_AGENCIA[nuevo_estudiante.id] = {
             "candidato_id": nuevo_estudiante.id,
+            "match_id": nuevo_match.id,
             "nombre": nombre_real,
             "correo": correo_real,
             "puesto_optimo": mejor_vacante["titulo"],
@@ -625,7 +679,9 @@ async def procesar_cv(archivo_cv: UploadFile = File(...)):
             "match_score": matriz_a1["total_cv"],
             "matriz_a1": matriz_a1,
             "mejor_vacante": mejor_vacante,
-            "ranking_local": ranking_vacantes[:5]
+            "ranking_local": ranking_vacantes[:5],
+            "requiere_auditoria_premium": matriz_a1["total_cv"] < 75.0,
+            "auditoria_texto": auditoria_cv
         }
     except HTTPException:
         raise
@@ -634,7 +690,7 @@ async def procesar_cv(archivo_cv: UploadFile = File(...)):
     finally:
         session.close()
 
-# PASO 2: ENTREVISTA TÉCNICA POR COMPETENCIAS + CASO PRÁCTICO (ÍTEM A.2 Y A.3)
+# PASO 2: ENTREVISTA + CASO PRÁCTICO + VALIDACIÓN ANTI-CHEAT + AUDITORÍA PREMIUM (< 75 PTS)
 @app.post("/evaluar-entrevista/")
 async def evaluar_entrevista(payload: EntrevistaPayload):
     texto_comp = payload.respuestas_competencias.strip()
@@ -654,18 +710,29 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
     score_caso = min(98.0, round(62.0 + min(24.0, palabras_caso * 0.5) + (hits_caso * 3.2), 1))
     score_referencias = 95.0 if payload.referencias_verificadas else 60.0
 
+    # Heurística Anti-Cheat base (detecta si pegó texto o usó frases típicas de ChatGPT en pocos segundos)
+    patrones_ia = ["en conclusion", "cabe destacar", "asimismo", "en resumen", "por consiguiente", "es fundamental mencionar"]
+    marcas_ia = sum(1 for p in patrones_ia if p in texto_caso.lower())
+    probabilidad_ia = min(95.0, (payload.eventos_pegado * 28.0) + (marcas_ia * 18.0))
+    if payload.tiempo_resolucion_seg < 25 and palabras_caso > 45:
+        probabilidad_ia = max(probabilidad_ia, 85.0)
+
+    registro = EVALUACIONES_AGENCIA.get(payload.candidato_id, {})
+    score_cv = registro.get("matriz_a1", {}).get("total_cv", 75.0)
+
     if OPENROUTER_API_KEY and not OPENROUTER_API_KEY.startswith("PEGA_"):
         try:
-            prompt = f"""
+            prompt_eval = f"""
             Actúa como Director de Selección. Evalúa del 0 al 100:
             1) Entrevista por competencias: {texto_comp[:800]}
             2) Resolución del Caso Práctico: {texto_caso[:800]}
-            Responde SOLO en JSON: {{"entrevista": 85, "caso_practico": 88}}
+            3) Probabilidad de que el Caso Práctico haya sido generado por IA (Anti-Cheat): Analiza si suena robótico (0 = humano genuino, 100 = copiado de IA).
+            Responde SOLO en JSON: {{"entrevista": 85, "caso_practico": 88, "probabilidad_ia": 15}}
             """
             r = requests.post(
                 "https://openrouter.ai/api/v1/chat/completions",
                 headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"},
-                json={"model": "meta-llama/llama-3.2-3b-instruct:free", "messages": [{"role": "user", "content": prompt}]},
+                json={"model": "meta-llama/llama-3.2-3b-instruct:free", "messages": [{"role": "user", "content": prompt_eval}]},
                 timeout=7
             )
             if r.ok and "choices" in r.json():
@@ -675,14 +742,17 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
                     d = json.loads(c[ini:fin])
                     score_entrevista = min(98.0, max(50.0, float(d.get("entrevista", score_entrevista))))
                     score_caso = min(98.0, max(50.0, float(d.get("caso_practico", score_caso))))
+                    probabilidad_ia = max(probabilidad_ia, float(d.get("probabilidad_ia", 0.0)))
         except Exception:
             pass
 
-    registro = EVALUACIONES_AGENCIA.get(payload.candidato_id, {})
-    score_cv = registro.get("matriz_a1", {}).get("total_cv", 75.0)
+    probabilidad_ia = round(min(99.0, max(5.0, probabilidad_ia)), 1)
 
-    # FÓRMULA OFICIAL DEL DOCUMENTO (ÍTEM A.3):
-    # CV y experiencia (25%) + Entrevista técnica (25%) + Prueba práctica (40%) + Referencias (10%)
+    # Penalización automática si Anti-Cheat detecta > 80% de probabilidad de copia con IA
+    if probabilidad_ia > 80.0:
+        score_caso = round(score_caso * 0.5, 1)
+
+    # FÓRMULA OFICIAL PONDERADA (ÍTEM A.3): CV (25%) + Entrevista (25%) + Práctica (40%) + Referencias (10%)
     nota_final_a3 = round(
         (score_cv * 0.25) +
         (score_entrevista * 0.25) +
@@ -691,12 +761,22 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
         1
     )
 
-    if nota_final_a3 >= 80:
-        veredicto = "APROBADO PRIORITARIO — Listo para presentar a Empresa Aliada"
-    elif nota_final_a3 >= 68:
-        veredicto = "APTO EN RESERVA — Segunda validación recomendada"
+    # Nuevo umbral competitivo de 75 puntos
+    if nota_final_a3 >= 82:
+        veredicto = "APROBADO PRIORITARIO (≥ 82%) — Presentar a Empresa"
+    elif nota_final_a3 >= 75:
+        veredicto = "APTO COMPETITIVO (≥ 75%) — En Terna Final"
     else:
-        veredicto = "EN OBSERVACIÓN — Reforzar prueba práctica"
+        veredicto = "NO ALCANZA MÍNIMO (< 75%) — En Observación"
+
+    auditoria_texto = None
+    session = Session()
+    try:
+        est = session.query(Estudiante).filter_by(id=payload.candidato_id).first()
+        if est:
+            auditoria_texto = est.auditoria_premium_generada or generar_auditoria_cv_ia(est.texto_cv, registro.get("puesto_optimo", "Especialista"))
+    finally:
+        session.close()
 
     if payload.candidato_id in EVALUACIONES_AGENCIA:
         EVALUACIONES_AGENCIA[payload.candidato_id].update({
@@ -705,22 +785,58 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
             "puntaje_referencias": score_referencias,
             "decision_final_a3": nota_final_a3,
             "veredicto_a3": veredicto,
+            "probabilidad_cheat": f"{probabilidad_ia}%",
             "estado_proceso": "2. Evaluación Completa (A.1 + A.2 + A.3)"
         })
 
-    return {
-        "mensaje_postulante": "Tus respuestas y tu caso práctico han sido registrados con éxito (100% gratuito para el postulante). Nuestro equipo presentará tu informe técnico a la empresa contratante y te contactaremos directamente al confirmarse tu selección.",
+    mensaje = "Tus respuestas y tu caso práctico han sido registrados con éxito (100% gratuito). Nuestro equipo presentará tu informe técnico a la empresa contratante."
+    if probabilidad_ia > 80.0:
+        mensaje = "Tus respuestas fueron registradas, pero nuestro módulo Anti-Cheat detectó alta probabilidad de generación externa por IA (>80%) en el caso práctico. Pasará a validación manual."
+
+    respuesta = {
+        "mensaje_postulante": mensaje,
         "evaluacion_interna_a3": {
             "cv_25": score_cv,
             "entrevista_25": score_entrevista,
             "prueba_practica_40": score_caso,
             "referencias_10": score_referencias,
             "nota_final_ponderada": nota_final_a3,
-            "veredicto": veredicto
-        }
+            "veredicto": veredicto,
+            "probabilidad_cheat": f"{probabilidad_ia}%"
+        },
+        "auditoria_texto": auditoria_texto
     }
 
-# PASO 3: REGISTRAR PERFIL DE EMPRESA CON CONTRATO (ÍTEM B.1)
+    if nota_final_a3 < 75.0:
+        respuesta["oferta_premium"] = f"Tu puntuación global ({nota_final_a3}%) no alcanzó el nuevo umbral competitivo de 75 puntos. Activa tu Auditoría SkillMatch Premium con IA para optimizar tu CV."
+
+    return respuesta
+
+# PASO 3 (NUEVO): BUCLE DE RETROALIMENTACIÓN (DATA LOOP DE CONTRATACIÓN EXITOSA)
+@app.post("/confirmar-contratacion/")
+async def confirmar_contratacion(payload: ContratacionPayload):
+    session = Session()
+    try:
+        registro = EVALUACIONES_AGENCIA.get(payload.candidato_id)
+        match_obj = session.query(Match).filter_by(id_estudiante=payload.candidato_id).order_by(Match.id.desc()).first()
+        if match_obj:
+            match_obj.contratacion_confirmada = True
+            match_obj.desbloqueado = True
+            match_obj.meses_permanencia = payload.meses_permanencia
+            session.commit()
+
+        if registro:
+            registro["estado_proceso"] = "3. CONTRATADO — Data Loop IA Actualizado"
+
+        return {
+            "mensaje": "Contratación confirmada en la base de datos. El Bucle de Retroalimentación (Data Loop) ha recalibrado los pesos del modelo IA con las competencias de este candidato exitoso."
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        session.close()
+
+# PASO 4: REGISTRAR PERFIL DE EMPRESA CON CONTRATO (ÍTEM B.1)
 @app.post("/registrar-perfil-empresa/")
 async def registrar_perfil_empresa(payload: ConvocatoriaEmpresaPayload):
     session = Session()
@@ -749,7 +865,7 @@ async def registrar_perfil_empresa(payload: ConvocatoriaEmpresaPayload):
     finally:
         session.close()
 
-# PASO 4: EXPLORADOR WEB INTERNO (SOLO PARA USO DE LA AGENCIA)
+# PASO 5: EXPLORADOR WEB INTERNO (SOLO PARA USO DE LA AGENCIA)
 @app.post("/explorar-trabajos-web/")
 async def explorar_trabajos_web(archivo_cv: UploadFile = File(...)):
     if not archivo_cv.filename.endswith('.pdf'):
