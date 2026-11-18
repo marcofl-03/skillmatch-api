@@ -317,8 +317,8 @@ def evaluar_matriz_a1(texto_cv, vacante_info):
     """
     Evalúa el CV con la Matriz de 100 puntos (Ítem A.1) y aplica el nuevo umbral competitivo de 75 puntos:
     - 85 a 100 pts: Candidato Prioritario
-    - 75 a 84 pts: Candidato para Evaluar (Supera el filtro competitivo)
-    - Menos de 75 pts: No Prioritario (Activa Auditoría Premium de CV)
+    - 75 a 84 pts: Candidato Competitivo (Supera el filtro)
+    - Menos de 75 pts: No Prioritario (Requiere Optimización Premium)
     """
     texto_low = ''.join(c for c in unicodedata.normalize('NFD', texto_cv.lower()) if unicodedata.category(c) != 'Mn')
     base_sim = calcular_similitud_inteligente(texto_cv, f"{vacante_info['titulo']} {vacante_info['descripcion']}") / 100.0
@@ -379,7 +379,6 @@ def evaluar_matriz_a1(texto_cv, vacante_info):
 
     total_100 = round(pts_formacion + pts_experiencia + pts_conocimientos + pts_herramientas + pts_logros + pts_estabilidad, 1)
 
-    # Nuevo umbral competitivo: mínimo 75 puntos
     if total_100 >= 85:
         clasificacion = "Candidato Prioritario (85 - 100 pts)"
     elif total_100 >= 75:
@@ -585,7 +584,7 @@ class ConvocatoriaEmpresaPayload(BaseModel):
 def home():
     return {"mensaje": "Servidor de SkillMatch AI Headhunting activo en Render (Umbral 75 pts + Anti-Cheat + Data Loop)"}
 
-# PASO 1: PROCESAR CV CON MATRIZ A.1 Y AUDITORÍA PREVENTIVA
+# PASO 1: PROCESAR CV CON MATRIZ A.1 Y AUDITORÍA PREMIUM BLOQUEADA POR PAGO ($5 USD)
 @app.post("/procesar-cv/")
 async def procesar_cv(archivo_cv: UploadFile = File(...)):
     if not archivo_cv.filename.endswith('.pdf'):
@@ -639,7 +638,7 @@ async def procesar_cv(archivo_cv: UploadFile = File(...)):
         matriz_a1 = evaluar_matriz_a1(texto_cv, mejor_vacante)
         mejor_vacante["match_score"] = matriz_a1["total_cv"]
 
-        # Generar Auditoría SkillMatch Premium para cualquier candidato (destacada si < 75 pts)
+        # Generar Auditoría SkillMatch Premium (se mantiene oculta hasta el desbloqueo por pago en el frontend)
         auditoria_cv = generar_auditoria_cv_ia(texto_cv, mejor_vacante["titulo"])
         nuevo_estudiante.auditoria_premium_generada = auditoria_cv
         session.commit()
@@ -669,6 +668,8 @@ async def procesar_cv(archivo_cv: UploadFile = File(...)):
             "estado_proceso": "1. CV Filtrado (Pendiente Entrevista A.2)"
         }
 
+        auditoria_preview = "Tu perfil no alcanzó el mínimo exigido de 75 puntos. Hemos generado un diagnóstico con IA para optimizar tus KPIs y herramientas."
+
         return {
             "candidato_id": nuevo_estudiante.id,
             "nombre_candidato": nombre_real,
@@ -681,7 +682,8 @@ async def procesar_cv(archivo_cv: UploadFile = File(...)):
             "mejor_vacante": mejor_vacante,
             "ranking_local": ranking_vacantes[:5],
             "requiere_auditoria_premium": matriz_a1["total_cv"] < 75.0,
-            "auditoria_texto": auditoria_cv
+            "auditoria_preview": auditoria_preview,
+            "auditoria_texto_completa": auditoria_cv
         }
     except HTTPException:
         raise
@@ -710,7 +712,7 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
     score_caso = min(98.0, round(62.0 + min(24.0, palabras_caso * 0.5) + (hits_caso * 3.2), 1))
     score_referencias = 95.0 if payload.referencias_verificadas else 60.0
 
-    # Heurística Anti-Cheat base (detecta si pegó texto o usó frases típicas de ChatGPT en pocos segundos)
+    # Heurística Anti-Cheat base
     patrones_ia = ["en conclusion", "cabe destacar", "asimismo", "en resumen", "por consiguiente", "es fundamental mencionar"]
     marcas_ia = sum(1 for p in patrones_ia if p in texto_caso.lower())
     probabilidad_ia = min(95.0, (payload.eventos_pegado * 28.0) + (marcas_ia * 18.0))
@@ -748,11 +750,10 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
 
     probabilidad_ia = round(min(99.0, max(5.0, probabilidad_ia)), 1)
 
-    # Penalización automática si Anti-Cheat detecta > 80% de probabilidad de copia con IA
     if probabilidad_ia > 80.0:
         score_caso = round(score_caso * 0.5, 1)
 
-    # FÓRMULA OFICIAL PONDERADA (ÍTEM A.3): CV (25%) + Entrevista (25%) + Práctica (40%) + Referencias (10%)
+    # FÓRMULA OFICIAL PONDERADA (ÍTEM A.3)
     nota_final_a3 = round(
         (score_cv * 0.25) +
         (score_entrevista * 0.25) +
@@ -761,7 +762,6 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
         1
     )
 
-    # Nuevo umbral competitivo de 75 puntos
     if nota_final_a3 >= 82:
         veredicto = "APROBADO PRIORITARIO (≥ 82%) — Presentar a Empresa"
     elif nota_final_a3 >= 75:
@@ -804,15 +804,15 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
             "veredicto": veredicto,
             "probabilidad_cheat": f"{probabilidad_ia}%"
         },
-        "auditoria_texto": auditoria_texto
+        "auditoria_texto_completa": auditoria_texto
     }
 
     if nota_final_a3 < 75.0:
-        respuesta["oferta_premium"] = f"Tu puntuación global ({nota_final_a3}%) no alcanzó el nuevo umbral competitivo de 75 puntos. Activa tu Auditoría SkillMatch Premium con IA para optimizar tu CV."
+        respuesta["oferta_premium"] = f"Tu puntuación global ({nota_final_a3}%) no alcanzó el umbral competitivo de 75 puntos. Desbloquea tu Auditoría SkillMatch Premium ($5 USD) en el panel izquierdo para conocer cómo optimizar tu CV."
 
     return respuesta
 
-# PASO 3 (NUEVO): BUCLE DE RETROALIMENTACIÓN (DATA LOOP DE CONTRATACIÓN EXITOSA)
+# PASO 3: BUCLE DE RETROALIMENTACIÓN (DATA LOOP DE CONTRATACIÓN EXITOSA)
 @app.post("/confirmar-contratacion/")
 async def confirmar_contratacion(payload: ContratacionPayload):
     session = Session()
