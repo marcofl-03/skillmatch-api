@@ -712,12 +712,17 @@ async def evaluar_entrevista(payload: EntrevistaPayload):
     score_caso = min(98.0, round(62.0 + min(24.0, palabras_caso * 0.5) + (hits_caso * 3.2), 1))
     score_referencias = 95.0 if payload.referencias_verificadas else 60.0
 
-    # Heurística Anti-Cheat base
-    patrones_ia = ["en conclusion", "cabe destacar", "asimismo", "en resumen", "por consiguiente", "es fundamental mencionar"]
+# Heurística Anti-Cheat base (MÁS ESTRICTA)
+    # Detecta frases típicas de IA, listas con guiones y estructura robótica
+    patrones_ia = ["en conclusion", "cabe destacar", "asimismo", "en resumen", "por consiguiente", "es importante", "primeramente", "en segundo lugar", "finalmente", "importante mencionar"]
     marcas_ia = sum(1 for p in patrones_ia if p in texto_caso.lower())
-    probabilidad_ia = min(95.0, (payload.eventos_pegado * 28.0) + (marcas_ia * 18.0))
-    if payload.tiempo_resolucion_seg < 25 and palabras_caso > 45:
-        probabilidad_ia = max(probabilidad_ia, 85.0)
+    
+    # Castigo severo por Pegar: 1 solo Ctrl+V ya te pone en 75% de riesgo.
+    probabilidad_ia = min(98.0, (payload.eventos_pegado * 75.0) + (marcas_ia * 30.0))
+    
+    # Castigo por tiempo: Si lo resuelve en menos de 90 segundos, es trampa segura.
+    if payload.tiempo_resolucion_seg < 90 and palabras_caso > 30:
+        probabilidad_ia = max(probabilidad_ia, 95.0)
 
     registro = EVALUACIONES_AGENCIA.get(payload.candidato_id, {})
     score_cv = registro.get("matriz_a1", {}).get("total_cv", 75.0)
