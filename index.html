@@ -126,7 +126,7 @@
             color: #ffffff;
         }
 
-        /* Espacios Publicitarios B2C Elegantes */
+        /* Espacios Publicitarios B2C */
         .ad-banner {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #ffffff;
@@ -147,6 +147,14 @@
             letter-spacing: 0.5px;
             padding: 0.15rem 0.5rem;
             border-radius: 4px;
+        }
+
+        /* Tarjeta SkillMatch Premium (Auditoría B2C) */
+        .premium-audit-card {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1px solid #f59e0b;
+            border-radius: 14px;
+            padding: 1.25rem;
         }
 
         /* Chatbot de Entrevista Virtual (A.2) */
@@ -213,7 +221,7 @@
 </head>
 <body>
 
-    <!-- 1. BARRA DE NAVEGACIÓN CON SELECTOR DE VISTA (POSTULANTE vs AGENCIA INTERNA) -->
+    <!-- 1. BARRA DE NAVEGACIÓN CON SELECTOR DE VISTA -->
     <nav class="navbar-custom">
         <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
             <a href="#" class="brand-logo">
@@ -221,19 +229,18 @@
                 <span>SkillMatch <span class="fw-normal text-secondary">AI</span></span>
             </a>
 
-            <!-- Selector de Modo para Demostración y Operación -->
             <div class="mode-switcher">
                 <button type="button" class="mode-btn active" id="btn-modo-postulante" onclick="cambiarVista('postulante')">
                     <i class="fa-solid fa-user-check me-1"></i>Vista Postulante (Pública + Ads)
                 </button>
                 <button type="button" class="mode-btn" id="btn-modo-agencia" onclick="cambiarVista('agencia')">
-                    <i class="fa-solid fa-user-shield me-1"></i>Panel Interno Agencia (A.1 / A.2 / A.3)
+                    <i class="fa-solid fa-user-shield me-1"></i>Panel Interno Agencia (A.1 / A.3 / Data Loop)
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- BANNER PUBLICITARIO SUPERIOR (MONETIZACIÓN B2C PARA VISITANTES) -->
+    <!-- BANNER PUBLICITARIO SUPERIOR (MONETIZACIÓN B2C) -->
     <div class="container mt-3" id="banner-top-ads">
         <div class="ad-banner d-flex flex-wrap justify-content-between align-items-center gap-3">
             <span class="ad-tag">Patrocinado • AdSense</span>
@@ -242,7 +249,7 @@
                     <i class="fa-solid fa-graduation-cap"></i>
                 </div>
                 <div>
-                    <h6 class="fw-bold mb-1 text-white">Certifícate en Power BI, SQL & Gestión Ágil para Destacar en tu Evaluación</h6>
+                    <h6 class="fw-bold mb-1 text-white">Certifícate en Power BI, SQL & Gestión Ágil para Superar el Umbral de 75 Puntos</h6>
                     <p class="small text-light opacity-75 mb-0">Aumenta tu puntaje en pruebas técnicas de selección con los programas ejecutivos de nuestros aliados educativos.</p>
                 </div>
             </div>
@@ -253,19 +260,19 @@
     <main class="container my-4">
         <div class="text-center mb-4">
             <h1 class="fw-bold mb-1" style="font-size: 2rem;">Centro de Selección y Evaluación de Talento con IA</h1>
-            <p class="text-secondary small mb-0">Sube tu CV 100% gratis. Evaluamos tus competencias mediante IA para conectarte con nuestras empresas contratantes.</p>
+            <p class="text-secondary small mb-0">Sube tu CV 100% gratis. Evaluamos tus competencias (Umbral competitivo: 75 pts) para conectarte con empresas contratantes.</p>
         </div>
 
         <div class="row g-4">
-            <!-- COLUMNA IZQUIERDA: CARGA DE CV + ANUNCIO LATERAL -->
+            <!-- COLUMNA IZQUIERDA: CARGA DE CV + AUDITORÍA PREMIUM B2C + ANUNCIO LATERAL -->
             <div class="col-lg-5">
                 <div class="saas-card">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <span class="badge-soft-emerald">100% Gratuito para Candidatos</span>
-                        <span class="text-secondary small">Paso 1 de 2</span>
+                        <span class="text-secondary small">Mínimo Competitivo: 75 pts</span>
                     </div>
                     <h5 class="fw-bold mb-1">Registra tu Currículum (PDF)</h5>
-                    <p class="text-secondary small mb-3">Nuestro motor de IA pre-seleccionará la vacante ideal para tu perfil y habilitará tu entrevista de competencias.</p>
+                    <p class="text-secondary small mb-3">Nuestro motor de IA pre-seleccionará la vacante ideal para tu perfil y habilitará tu entrevista cronometrada.</p>
 
                     <form id="formulario-cv">
                         <input type="file" id="archivo_cv" accept=".pdf" class="d-none" required>
@@ -289,25 +296,38 @@
                     </div>
                 </div>
 
+                <!-- NUEVO MÓDULO B2C: SKILLMATCH PREMIUM (AUDITORÍA DE CV POR IA) -->
+                <div class="premium-audit-card mt-4 hidden" id="card-auditoria-premium">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-warning text-dark fw-bold"><i class="fa-solid fa-crown me-1"></i>SKILLMATCH PREMIUM (B2C)</span>
+                        <span class="small fw-bold text-dark" id="badge-precio-auditoria">Reporte IA</span>
+                    </div>
+                    <h6 class="fw-bold mb-1 text-dark">Auditoría Inteligente de CV para Superar 75 pts</h6>
+                    <p class="small text-secondary mb-2" id="subtitulo-auditoria">Descubre exactamente qué verbos de acción, KPIs y herramientas agregar a tu CV.</p>
+                    <button type="button" class="btn btn-dark btn-sm w-100 fw-semibold" id="btn-ver-auditoria" onclick="mostrarDetalleAuditoria()">
+                        <i class="fa-solid fa-wand-magic-sparkles me-1"></i>Desbloquear Diagnóstico de mi CV ($5 USD)
+                    </button>
+                    <div id="contenido-auditoria-texto" class="mt-3 p-2 bg-white rounded-2 border small text-dark hidden" style="white-space: pre-line;"></div>
+                </div>
+
                 <!-- ESPACIO PUBLICITARIO LATERAL B2C -->
                 <div class="ad-banner mt-4">
                     <span class="ad-tag">Publicidad</span>
                     <div class="small text-success fw-bold mb-1"><i class="fa-solid fa-bolt me-1"></i>ALIANZA CORPORATIVA</div>
                     <h6 class="fw-bold mb-1">Inglés para Entrevistas de Alto Nivel</h6>
                     <p class="small text-light opacity-75 mb-2">Prepárate para evaluaciones B2B en empresas multinacionales con simuladores 1 a 1.</p>
-                    <span class="badge bg-emerald-100 text-dark bg-light">Espacio Publicitario Activo</span>
+                    <span class="badge bg-light text-dark">Espacio Publicitario Activo</span>
                 </div>
             </div>
 
-            <!-- COLUMNA DERECHA (MODO 1: VISTA PÚBLICA DEL POSTULANTE — ESTILO MICHAEL PAGE) -->
+            <!-- COLUMNA DERECHA (MODO 1: VISTA PÚBLICA DEL POSTULANTE) -->
             <div class="col-lg-7" id="panel-vista-postulante">
                 <div class="saas-card h-100">
-                    <!-- Estado antes de subir CV -->
                     <div id="postulante-espera" class="text-center py-5">
                         <div class="mb-3 text-success fs-1"><i class="fa-solid fa-robot"></i></div>
                         <h5 class="fw-bold">Asistente Virtual de Entrevista & Caso Práctico</h5>
                         <p class="text-secondary small mx-auto" style="max-width: 480px;">
-                            Sube tu CV en el panel izquierdo. Una vez procesado, conocerás el puesto y sector al que calificas, y nuestro Asistente Virtual te planteará una entrevista por competencias junto con un caso práctico real.
+                            Sube tu CV en el panel izquierdo. Una vez procesado, conocerás el puesto y sector al que calificas, y tendrás <strong>15 minutos</strong> para resolver tu entrevista de competencias y caso práctico real con validación de integridad Anti-Cheat.
                         </p>
                         <div class="alert alert-light border small text-secondary mt-3 mb-0">
                             <i class="fa-solid fa-shield-halved text-success me-1"></i>
@@ -315,7 +335,6 @@
                         </div>
                     </div>
 
-                    <!-- Estado después de subir CV: Ficha Estilo Michael Page + Entrevista + Caso Práctico (Ítem A.2) -->
                     <div id="postulante-entrevista" class="hidden">
                         <!-- RESUMEN DE EMPLEO ESTILO MICHAEL PAGE -->
                         <div class="p-3 rounded-3 mb-3" style="background-color: #f0fdf4; border: 1px solid #bbf7d0;">
@@ -328,29 +347,37 @@
                                         <strong>Empresa:</strong> Importante corporación líder en el sector <span id="postulante-sector-optimo">Empresarial</span> (Vacante Confidencial + 4 empresas aliadas)
                                     </p>
                                 </div>
-                                <span class="badge bg-dark font-monospace" id="postulante-ref-codigo">REF: SM-112026</span>
+                                <div class="text-end">
+                                    <span class="badge bg-dark font-monospace d-block mb-1" id="postulante-ref-codigo">REF: SM-112026</span>
+                                    <span class="badge bg-danger-subtle text-danger fw-bold font-monospace" id="timer-badge">
+                                        <i class="fa-regular fa-clock me-1"></i>15:00
+                                    </span>
+                                </div>
                             </div>
                             <div class="row g-2 pt-2 border-top border-success border-opacity-25 small text-secondary">
                                 <div class="col-6 col-md-3"><strong>Ubicación:</strong> Lima, Perú</div>
                                 <div class="col-6 col-md-3"><strong>Contrato:</strong> Permanente</div>
-                                <div class="col-6 col-md-3"><strong>Beneficios:</strong> De ley + Línea de carrera</div>
-                                <div class="col-6 col-md-3"><strong>Costo Postulante:</strong> 100% Gratuito</div>
+                                <div class="col-6 col-md-3"><strong>Filtro Mínimo:</strong> 75 / 100 pts</div>
+                                <div class="col-6 col-md-3"><strong>Integridad:</strong> Anti-Cheat IA Activo</div>
                             </div>
                         </div>
 
                         <h6 class="fw-bold mb-2"><i class="fa-solid fa-comments text-success me-2"></i>1. Entrevista Técnica por Competencias (Asistente IA)</h6>
                         <div class="chat-box mb-3">
                             <div class="bot-bubble">
-                                <strong>Asistente Virtual SkillMatch:</strong> ¡Hola <span id="chat-nombre-postulante">Candidato</span>! Para validar tu experiencia frente al requerimiento del puesto, responde de forma concreta a estas preguntas:
+                                <strong>Asistente Virtual SkillMatch:</strong> ¡Hola <span id="chat-nombre-postulante">Candidato</span>! Para validar tu experiencia frente al requerimiento del puesto, responde con tus propias palabras a estas preguntas:
                                 <ul class="mt-2 mb-0 ps-3" id="lista-preguntas-a2"></ul>
                             </div>
                             <textarea id="input-respuestas-competencias" class="form-control form-control-sm mt-2" rows="3" placeholder="Escribe aquí tus funciones desempeñadas, problemas que resolviste, herramientas usadas y resultados logrados..."></textarea>
                         </div>
 
-                        <h6 class="fw-bold mb-2"><i class="fa-solid fa-briefcase text-success me-2"></i>2. Segunda Evaluación: Prueba Práctica Real (<span id="badge-area-caso">Especialidad</span>)</h6>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="fw-bold mb-0"><i class="fa-solid fa-briefcase text-success me-2"></i>2. Segunda Evaluación: Prueba Práctica Real (<span id="badge-area-caso">Especialidad</span>)</h6>
+                            <span class="badge bg-light text-secondary border small"><i class="fa-solid fa-user-lock me-1"></i>Monitoreo Anti-IA</span>
+                        </div>
                         <div class="p-3 rounded-3 mb-3" style="background-color: #f8fafc; border: 1px solid #cbd5e1;">
                             <p class="small fw-semibold text-dark mb-2" id="texto-caso-practico"></p>
-                            <textarea id="input-respuesta-caso" class="form-control form-control-sm" rows="4" placeholder="Desarrolla aquí tu solución práctica paso a paso..."></textarea>
+                            <textarea id="input-respuesta-caso" class="form-control form-control-sm" rows="4" placeholder="Desarrolla aquí tu solución práctica paso a paso (evita copiar y pegar respuestas de IA externas)..."></textarea>
                         </div>
 
                         <button type="button" class="btn-emerald w-100" id="btn-enviar-entrevista">
@@ -367,7 +394,7 @@
                 <div class="saas-card h-100">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span class="badge bg-dark"><i class="fa-solid fa-lock me-1"></i>USO INTERNO DE TU AGENCIA B2B</span>
-                        <span class="text-secondary small">Identidad de empresas visible</span>
+                        <span class="text-secondary small">Umbral Competitivo: 75 pts | Anti-Cheat + Data Loop</span>
                     </div>
 
                     <ul class="nav segmented-tabs mb-4" id="agenciaTabs" role="tablist">
@@ -378,7 +405,7 @@
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="tab-a3-btn" data-bs-toggle="tab" data-bs-target="#tab-a3" type="button">
-                                A.3 Decisión Final (Ranking)
+                                A.3 Decisión & Data Loop
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
@@ -394,10 +421,10 @@
                     </ul>
 
                     <div class="tab-content">
-                        <!-- PESTAÑA INTERNA 1: MATRIZ A.1 (100 PTS) Y LAS 5 EMPRESAS COMPATIBLES -->
+                        <!-- PESTAÑA INTERNA 1: MATRIZ A.1 -->
                         <div class="tab-pane fade show active" id="tab-a1">
                             <div id="agencia-vacio" class="text-center py-5 text-secondary small">
-                                Sube un CV en el panel izquierdo para ver su desglose en la Matriz de 100 puntos (Ítem A.1) y las 5 empresas con contrato donde encaja.
+                                Sube un CV en el panel izquierdo para ver su desglose en la Matriz de 100 puntos (Umbral mínimo: 75 pts) y las 5 empresas con contrato donde encaja.
                             </div>
 
                             <div id="agencia-contenido-a1" class="hidden">
@@ -409,7 +436,7 @@
                                     </div>
                                     <div class="text-end">
                                         <div class="fs-3 fw-extrabold text-success" id="a1-total-pts">0 / 100</div>
-                                        <span class="small text-secondary">Puntaje Matriz A.1</span>
+                                        <span class="small text-secondary">Mínimo exigido: 75 pts</span>
                                     </div>
                                 </div>
 
@@ -421,11 +448,11 @@
                             </div>
                         </div>
 
-                        <!-- PESTAÑA INTERNA 2: DECISIÓN FINAL PONDERADA (ÍTEM A.3) -->
+                        <!-- PESTAÑA INTERNA 2: DECISIÓN FINAL PONDERADA (A.3) + ANTI-CHEAT + DATA LOOP -->
                         <div class="tab-pane fade" id="tab-a3">
                             <div class="mb-2">
-                                <h6 class="fw-bold mb-1">Matriz de Decisión Final mediante IA (Ítem A.3)</h6>
-                                <p class="text-secondary small mb-2">Ponderación oficial: <strong>CV (25%) + Entrevista Técnica (25%) + Prueba Práctica (40%) + Referencias (10%) = 100%</strong></p>
+                                <h6 class="fw-bold mb-1">Matriz de Decisión Final (A.3), Detector Anti-Cheat y Data Loop</h6>
+                                <p class="text-secondary small mb-2">Ponderación: <strong>CV (25%) + Entrevista (25%) + Práctica (40% con Anti-Cheat) + Referencias (10%)</strong> | Mínimo aprobatorio: <strong>75%</strong></p>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-sm align-middle small">
@@ -434,9 +461,9 @@
                                             <th>Candidato / Correo</th>
                                             <th>CV (25%)</th>
                                             <th>Entrev. (25%)</th>
-                                            <th>Práctica (40%)</th>
+                                            <th>Práctica (40%) & Anti-Cheat</th>
                                             <th>Nota Final</th>
-                                            <th>Estado / Recomendación</th>
+                                            <th>Estado / Data Loop B2B</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tabla-decision-a3">
@@ -446,6 +473,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div id="notificacion-dataloop" class="alert alert-success py-2 small hidden mt-2 mb-0"></div>
                         </div>
 
                         <!-- PESTAÑA INTERNA 3: DEFINIR PERFIL DE EMPRESA CON CONTRATO (ÍTEM B.1) -->
@@ -514,13 +542,13 @@
             <div class="text-center mb-4">
                 <span class="badge-soft-emerald mb-2 d-inline-block">Agencia de Headhunting & IA</span>
                 <h3 class="fw-bold">Sobre SkillMatch AI</h3>
-                <p class="text-secondary small mx-auto" style="max-width: 620px;">Seleccionamos al profesional idóneo validando su currículum, entrevista por competencias y resolución de casos prácticos reales.</p>
+                <p class="text-secondary small mx-auto" style="max-width: 620px;">Seleccionamos al profesional idóneo validando su currículum, entrevista por competencias y resolución de casos prácticos reales con integridad verificada.</p>
             </div>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="saas-card h-100">
                         <h6 class="fw-bold"><i class="fa-solid fa-building-shield text-success me-2"></i>Quiénes Somos</h6>
-                        <p class="text-secondary small mb-0">Somos una firma tecnológica de selección y evaluación de talento que conecta profesionales calificados con empresas contratantes mediante matrices algorítmicas y pruebas prácticas asistidas por IA.</p>
+                        <p class="text-secondary small mb-0">Somos una firma tecnológica de selección y evaluación de talento que conecta profesionales calificados con empresas contratantes mediante matrices algorítmicas, validación Anti-Cheat y pruebas prácticas asistidas por IA.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -532,7 +560,7 @@
                 <div class="col-md-4">
                     <div class="saas-card h-100">
                         <h6 class="fw-bold"><i class="fa-solid fa-eye text-success me-2"></i>Nuestra Visión</h6>
-                        <p class="text-secondary small mb-0">Liderar el mercado de reclutamiento especializado en LATAM a través de un banco de datos inteligente capaz de seleccionar, entrevistar y certificar a los mejores candidatos en tiempo récord.</p>
+                        <p class="text-secondary small mb-0">Liderar el mercado de reclutamiento especializado en LATAM a través de un banco de datos inteligente con aprendizaje continuo (Data Loop) capaz de certificar a los mejores candidatos en tiempo récord.</p>
                     </div>
                 </div>
             </div>
@@ -556,6 +584,37 @@
 
         let candidatoActualId = null;
         let datosCandidatoActual = null;
+        let contadorPegados = 0;
+        let segundosTranscurridos = 0;
+        let segundosRestantes = 900; // 15 minutos
+        let intervaloTimer = null;
+
+        // Monitoreo Anti-Cheat de eventos de pegado (Ctrl+V / Paste)
+        document.getElementById('input-respuesta-caso').addEventListener('paste', () => {
+            contadorPegados += 1;
+        });
+
+        function iniciarTemporizadorCaso() {
+            if (intervaloTimer) clearInterval(intervaloTimer);
+            segundosTranscurridos = 0;
+            segundosRestantes = 900;
+            contadorPegados = 0;
+            const badge = document.getElementById('timer-badge');
+
+            intervaloTimer = setInterval(() => {
+                segundosTranscurridos += 1;
+                if (segundosRestantes > 0) segundosRestantes -= 1;
+                const min = String(Math.floor(segundosRestantes / 60)).padStart(2, '0');
+                const seg = String(segundosRestantes % 60).padStart(2, '0');
+                badge.innerHTML = `<i class="fa-regular fa-clock me-1"></i>${min}:${seg}`;
+            }, 1000);
+        }
+
+        function mostrarDetalleAuditoria() {
+            const box = document.getElementById('contenido-auditoria-texto');
+            box.classList.remove('hidden');
+            document.getElementById('btn-ver-auditoria').innerHTML = `<i class="fa-solid fa-check me-1"></i>Auditoría IA Desbloqueada`;
+        }
 
         function cambiarVista(modo) {
             const btnPost = document.getElementById('btn-modo-postulante');
@@ -584,7 +643,7 @@
             }
         });
 
-        // 1. SUBIR CV: ACTIVA FICHA MICHAEL PAGE + ENTREVISTA PARA EL POSTULANTE Y MATRIZ A.1 PARA LA AGENCIA
+        // 1. SUBIR CV: ACTIVA FICHA MICHAEL PAGE + TEMPORIZADOR + AUDITORÍA PREMIUM + MATRIZ A.1
         document.getElementById('formulario-cv').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (archivoInput.files.length === 0) {
@@ -593,7 +652,7 @@
             }
 
             loader.classList.remove('hidden');
-            loaderText.innerText = "Evaluando CV en Matriz de 100 puntos y generando caso práctico...";
+            loaderText.innerText = "Evaluando CV (Umbral 75 pts) y preparando caso práctico...";
             const formData = new FormData();
             formData.append('archivo_cv', archivoInput.files[0]);
 
@@ -605,7 +664,24 @@
                     candidatoActualId = datos.candidato_id;
                     datosCandidatoActual = datos;
 
-                    // A) Actualizar Vista del Postulante (Ficha Resumen estilo Michael Page + Chatbot A.2)
+                    // Iniciar cronómetro Anti-Cheat de 15 minutos
+                    iniciarTemporizadorCaso();
+
+                    // Mostrar tarjeta SkillMatch Premium (Auditoría de CV B2C)
+                    const cardAuditoria = document.getElementById('card-auditoria-premium');
+                    const textoAuditoria = document.getElementById('contenido-auditoria-texto');
+                    cardAuditoria.classList.remove('hidden');
+                    textoAuditoria.innerText = datos.auditoria_texto || "Optimiza tus logros cuantificables y palabras clave técnicas.";
+                    if (datos.requiere_auditoria_premium) {
+                        document.getElementById('subtitulo-auditoria').innerHTML = `<strong>Atención:</strong> Tu CV obtuvo <strong>${datos.match_score} pts</strong> (menor al umbral competitivo de 75 pts). Revisa las 3 mejoras sugeridas por nuestra IA:`;
+                        textoAuditoria.classList.remove('hidden');
+                        document.getElementById('btn-ver-auditoria').innerHTML = `<i class="fa-solid fa-check me-1"></i>Auditoría IA Activada Automáticamente`;
+                    } else {
+                        textoAuditoria.classList.add('hidden');
+                        document.getElementById('btn-ver-auditoria').innerHTML = `<i class="fa-solid fa-wand-magic-sparkles me-1"></i>Desbloquear Diagnóstico de mi CV ($5 USD)`;
+                    }
+
+                    // A) Actualizar Vista del Postulante
                     document.getElementById('postulante-espera').classList.add('hidden');
                     document.getElementById('postulante-entrevista').classList.remove('hidden');
                     document.getElementById('confirmacion-final-postulante').classList.add('hidden');
@@ -618,7 +694,6 @@
                     document.getElementById('badge-area-caso').innerText = datos.area_detectada || "Caso Real";
                     document.getElementById('texto-caso-practico').innerText = datos.caso_practico;
 
-                    // Limpiar campos de respuesta para una nueva evaluación
                     document.getElementById('input-respuestas-competencias').value = "";
                     document.getElementById('input-respuesta-caso').value = "";
                     document.getElementById('btn-enviar-entrevista').innerHTML = `<i class="fa-solid fa-check-double me-2"></i>Enviar Entrevista y Prueba Práctica para Decisión Final`;
@@ -633,12 +708,7 @@
                     document.getElementById('agencia-vacio').classList.add('hidden');
                     document.getElementById('agencia-contenido-a1').classList.remove('hidden');
 
-                    const m = datos.matriz_a1 || {
-                        formacion: 13, experiencia: 20, conocimientos: 20,
-                        herramientas: 12, logros: 8, estabilidad: 8,
-                        total_cv: datos.match_score, clasificacion: "Candidato Evaluado"
-                    };
-
+                    const m = datos.matriz_a1;
                     document.getElementById('a1-clasificacion').innerText = m.clasificacion;
                     document.getElementById('a1-puesto-optimo').innerText = datos.mejor_vacante.titulo;
                     document.getElementById('a1-empresa-optima').innerText = `Empresa destino (Confidencial): ${datos.mejor_vacante.empresa}`;
@@ -686,7 +756,7 @@
                         `;
                     });
 
-                    actualizarFilaDecisionA3(datos.nombre_candidato, datos.correo_extraido, m.total_cv, 0, 0, (m.total_cv * 0.25).toFixed(1), "Pendiente Entrevista A.2");
+                    actualizarFilaDecisionA3(datos.nombre_candidato, datos.correo_extraido, m.total_cv, 0, 0, (m.total_cv * 0.25).toFixed(1), "Pendiente Entrevista A.2", "0%");
                 } else {
                     alert("Aviso: " + (datos.detail || datos.mensaje));
                 }
@@ -697,7 +767,7 @@
             }
         });
 
-        // 2. ENVIAR ENTREVISTA Y CASO PRÁCTICO (CALCULA DECISIÓN FINAL A.3)
+        // 2. ENVIAR ENTREVISTA Y CASO PRÁCTICO (INCLUYE VALIDACIÓN ANTI-CHEAT Y OFERTA PREMIUM SI < 75)
         document.getElementById('btn-enviar-entrevista').addEventListener('click', async () => {
             if (!candidatoActualId) return;
             const respComp = document.getElementById('input-respuestas-competencias').value;
@@ -708,9 +778,11 @@
                 return;
             }
 
+            if (intervaloTimer) clearInterval(intervaloTimer);
+
             const btn = document.getElementById('btn-enviar-entrevista');
             btn.disabled = true;
-            btn.innerText = "Evaluando Caso Práctico con IA...";
+            btn.innerText = "Evaluando Caso Práctico y Verificando Integridad Anti-Cheat...";
 
             try {
                 const respuesta = await fetch(`${API_BASE_URL}/evaluar-entrevista/`, {
@@ -720,7 +792,9 @@
                         candidato_id: candidatoActualId,
                         respuestas_competencias: respComp,
                         respuesta_caso_practico: respCaso,
-                        referencias_verificadas: true
+                        referencias_verificadas: true,
+                        eventos_pegado: contadorPegados,
+                        tiempo_resolucion_seg: segundosTranscurridos
                     })
                 });
                 const datos = await respuesta.json();
@@ -738,8 +812,15 @@
                         ev.entrevista_25,
                         ev.prueba_practica_40,
                         ev.nota_final_ponderada,
-                        ev.veredicto
+                        ev.veredicto,
+                        ev.probabilidad_cheat
                     );
+
+                    // Si no alcanzó los 75 puntos, desplegar automáticamente la Auditoría SkillMatch Premium
+                    if (datos.oferta_premium) {
+                        document.getElementById('subtitulo-auditoria').innerHTML = `<strong class="text-danger">${datos.oferta_premium}</strong>`;
+                        document.getElementById('contenido-auditoria-texto').classList.remove('hidden');
+                    }
                 } else {
                     alert("Aviso: " + (datos.detail || "Completa tus respuestas."));
                 }
@@ -751,12 +832,18 @@
             }
         });
 
-        function actualizarFilaDecisionA3(nombre, correo, cv, entrev, practica, finalScore, estado) {
+        function actualizarFilaDecisionA3(nombre, correo, cv, entrev, practica, finalScore, estado, probCheat = "0%") {
             const tbody = document.getElementById('tabla-decision-a3');
             if (tbody.innerText.includes("Aún no hay candidatos")) tbody.innerHTML = "";
 
             const rowId = `fila-a3-${candidatoActualId}`;
             const existente = document.getElementById(rowId);
+
+            const cheatNum = parseFloat(probCheat) || 0;
+            const cheatHtml = cheatNum > 80
+                ? `<span class="badge bg-danger-subtle text-danger"><i class="fa-solid fa-triangle-exclamation me-1"></i>Alerta IA: ${probCheat}</span>`
+                : `<span class="badge bg-light text-secondary border">Riesgo IA: ${probCheat}</span>`;
+
             const htmlCeldas = `
                 <td>
                     <div class="fw-bold">${nombre}</div>
@@ -764,9 +851,16 @@
                 </td>
                 <td>${cv} pts</td>
                 <td>${entrev > 0 ? entrev + ' pts' : '<span class="text-muted">—</span>'}</td>
-                <td class="fw-bold text-success">${practica > 0 ? practica + ' pts' : '<span class="text-muted">—</span>'}</td>
+                <td class="fw-bold text-success">
+                    ${practica > 0 ? practica + ' pts<div class="mt-1">' + cheatHtml + '</div>' : '<span class="text-muted">—</span>'}
+                </td>
                 <td><span class="badge bg-dark fs-6">${finalScore}%</span></td>
-                <td><span class="badge bg-success-subtle text-success">${estado}</span></td>
+                <td>
+                    <span class="badge bg-success-subtle text-success mb-1 d-block" id="estado-cand-${candidatoActualId}">${estado}</span>
+                    <button type="button" class="btn btn-outline-dark btn-sm w-100 fw-semibold" style="font-size:0.72rem" onclick="confirmarContratacionDataLoop(${candidatoActualId}, this)">
+                        <i class="fa-solid fa-handshake me-1"></i>Contratar (Data Loop)
+                    </button>
+                </td>
             `;
 
             if (existente) {
@@ -776,7 +870,35 @@
             }
         }
 
-        // 3. REGISTRAR NUEVA CONVOCATORIA DE EMPRESA CON CONTRATO (ÍTEM B.1)
+        // 3. BUCLE DE RETROALIMENTACIÓN (DATA LOOP B2B)
+        async function confirmarContratacionDataLoop(idCand, boton) {
+            boton.disabled = true;
+            boton.innerHTML = `<i class="fa-solid fa-rotate fa-spin me-1"></i>Entrenando...`;
+            try {
+                const r = await fetch(`${API_BASE_URL}/confirmar-contratacion/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ candidato_id: idCand, meses_permanencia: 6 })
+                });
+                const d = await r.json();
+                if (r.ok) {
+                    const badgeEstado = document.getElementById(`estado-cand-${idCand}`);
+                    if (badgeEstado) {
+                        badgeEstado.className = "badge bg-dark text-white mb-1 d-block";
+                        badgeEstado.innerText = "✓ CONTRATADO (Data Loop Activo)";
+                    }
+                    boton.outerHTML = `<span class="badge bg-success-subtle text-success w-100 py-1"><i class="fa-solid fa-brain me-1"></i>IA Recalibrada</span>`;
+                    const notif = document.getElementById('notificacion-dataloop');
+                    notif.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i><strong>Data Loop ejecutado:</strong> ${d.mensaje}`;
+                    notif.classList.remove('hidden');
+                }
+            } catch (e) {
+                boton.disabled = false;
+                boton.innerText = "Reintentar";
+            }
+        }
+
+        // 4. REGISTRAR NUEVA CONVOCATORIA DE EMPRESA CON CONTRATO (ÍTEM B.1)
         document.getElementById('form-perfil-b1').addEventListener('submit', async (e) => {
             e.preventDefault();
             const payload = {
@@ -808,7 +930,7 @@
             }
         });
 
-        // 4. RASTREO EXTERNO MULTIFUENTE
+        // 5. RASTREO EXTERNO MULTIFUENTE
         document.getElementById('btn-buscar-web').addEventListener('click', async () => {
             if (archivoInput.files.length === 0) {
                 alert("Sube un CV primero en el panel izquierdo.");
