@@ -589,11 +589,14 @@
         let segundosRestantes = 900; // 15 minutos
         let intervaloTimer = null;
 
-        // Monitoreo Anti-Cheat de eventos de pegado (Ctrl+V / Paste)
-        document.getElementById('input-respuesta-caso').addEventListener('paste', () => {
-            contadorPegados += 1;
-        });
-
+// Monitoreo Anti-Cheat de eventos de pegado (Ctrl+V / Paste) en AMBAS cajas de texto
+        const detectarPegado = () => { contadorPegados += 1; console.log("Pegado detectado:", contadorPegados); };
+        
+        const inputComp = document.getElementById('input-respuestas-competencias');
+        const inputCaso = document.getElementById('input-respuesta-caso');
+        
+        if(inputComp) inputComp.addEventListener('paste', detectarPegado);
+        if(inputCaso) inputCaso.addEventListener('paste', detectarPegado);
         function iniciarTemporizadorCaso() {
             if (intervaloTimer) clearInterval(intervaloTimer);
             segundosTranscurridos = 0;
